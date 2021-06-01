@@ -20,5 +20,11 @@ Install requiered packages:
 ```python -m pip install -r requirements.txt```
 
 Run Code:
-
 ```python3 main.py```
+
+
+
+## Acknowladegements:
+
+- Dataset ImageNette:
+    - https://github.com/fastai/imagenette
