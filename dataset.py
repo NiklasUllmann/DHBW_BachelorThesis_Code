@@ -48,16 +48,16 @@ class ImagenetteDataset(torch.utils.data.Dataset):
     def get_string_for_label(self, string):
 
         imagenette_map = {
-            "n01440764": "tench",
-            "n02102040": "springer",
-            "n02979186": "casette_player",
-            "n03000684": "chain_saw",
-            "n03028079": "church",
-            "n03394916": "French_horn",
-            "n03417042": "garbage_truck",
-            "n03425413": "gas_pump",
-            "n03445777": "golf_ball",
-            "n03888257": "parachute",
+            "n01440764": 0,
+            "n02102040": 1,
+            "n02979186": 2,
+            "n03000684": 3,
+            "n03028079": 4,
+            "n03394916": 5,
+            "n03417042": 6,
+            "n03425413": 7,
+            "n03445777": 8,
+            "n03888257": 9,
         }
         return imagenette_map[string]
 

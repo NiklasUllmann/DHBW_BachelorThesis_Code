@@ -41,3 +41,5 @@ imagenette_map = {
 
 - Dataset ImageNette:
     - https://github.com/fastai/imagenette
+- ViT:
+    - https://github.com/lucidrains/vit-pytorch
