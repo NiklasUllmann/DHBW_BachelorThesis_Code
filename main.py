@@ -17,6 +17,8 @@ import pytorch_lightning as pl
 from linformer import Linformer
 from ViT.vit import ViT
 
+from CNN.cnn import CNN
+
 
 def main():
     """ Main program """
@@ -29,6 +31,13 @@ def main():
 
     # imshow(torchvision.utils.make_grid(images2[:4]), labels2[:4])
 
+    #using one gpu given to us by google colab for max 40 epochs
+    myTrainer=pl.Trainer()
+
+    model=CNN()
+    myTrainer.fit(model, train, val)
+
+    """
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
     model = ViT(
@@ -91,7 +100,7 @@ def main():
         print(
             f"Epoch : {epoch+1} - loss : {epoch_loss:.4f} - acc: {epoch_accuracy:.4f} - val_loss : {epoch_val_loss:.4f} - val_acc: {epoch_val_accuracy:.4f}\n"
         )
-
+    """
     return 0
 
 
