@@ -7,14 +7,16 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import torch
 from PIL import Image
 
-BATCH_SIZE = 64
-SPLIT = 0.15
+BATCH_SIZE = 128
+SPLIT = 0.3
 ANNOTATION_PATH = "./data/noisy_imagenette.csv"
 IMG_PATH = "./data"
 TRANSFORMER = transforms.Compose(
         [
             transforms.Resize((320, 320)),
             transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+
         ]
     )
 
@@ -79,8 +81,8 @@ def load_data():
     val_sampler = SubsetRandomSampler(val_indices)
 
     train_loader = torch.utils.data.DataLoader(data, batch_size=BATCH_SIZE, 
-                                           sampler=train_sampler)
+                                               sampler=train_sampler, num_workers=6)
     validation_loader = torch.utils.data.DataLoader(data, batch_size=BATCH_SIZE,
-                                                sampler=val_sampler)
+                                                    sampler=val_sampler, num_workers=6)
                                                 
     return train_loader, validation_loader

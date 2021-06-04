@@ -7,31 +7,29 @@ import pytorch_lightning as pl
 
 
 class CNN(pl.LightningModule):
+
+
     def __init__(self):
-        super(CNN, self).__init__()
-        self.layer1 = torch.nn.Sequential(
-            torch.nn.Conv2d(3, 320, kernel_size=5),
-            torch.nn.ReLU(),
-            torch.nn.MaxPool2d(kernel_size=2),
-        )
-        self.layer2 = torch.nn.Sequential(
-            torch.nn.Conv2d(320, 10, kernel_size=2),
-            torch.nn.ReLU(),
-            torch.nn.MaxPool2d(kernel_size=2),
-        )
-        self.dropout1 = torch.nn.Dropout(0.25)
-        self.fc1 = torch.nn.Linear(250, 18)
-        self.dropout2 = torch.nn.Dropout(0.08)
-        self.fc2 = torch.nn.Linear(18, 10)
+        super().__init__()
+
+    # mnist images are (1, 28, 28) (channels, width, height)
+        self.layer_1 = torch.nn.Linear(320 * 320 * 3, 128)
+        self.layer_2 = torch.nn.Linear(128, 256)
+        self.layer_3 = torch.nn.Linear(256, 10)
 
     def forward(self, x):
+        batch_size, channels, width, height = x.size()
 
-        x = self.layer1(x)
-        x = self.layer2(x)
-        x = self.dropout1(x)
-        x = torch.relu(self.fc1(x.view(x.size(0), -1)))
-        x = F.leaky_relu(self.dropout2(x))
-        return F.softmax(self.fc2(x))
+    # (b, 1, 28, 28) -> (b, 1*28*28)
+        x = x.view(batch_size, -1)
+        x = self.layer_1(x)
+        x = F.relu(x)
+        x = self.layer_2(x)
+        x = F.relu(x)
+        x = self.layer_3(x)
+
+        x = F.log_softmax(x, dim=1)
+        return x
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters())
@@ -45,7 +43,7 @@ class CNN(pl.LightningModule):
         pred = self.forward(x)
 
         # calculating the loss
-        loss = F.nnl_loss(pred, labels)
+        loss = F.nll_loss(pred, labels)
 
         # logs
         logs = {"train_loss": loss}
@@ -56,5 +54,18 @@ class CNN(pl.LightningModule):
             # optional for logging purposes
             "log": logs,
         }
+        self.log('my_loss', loss, prog_bar=True)
 
         return output
+
+    def validation_step(self, batch, batch_idx):
+        x, y = batch
+        y_hat = self.forward(x)
+        loss = F.cross_entropy(y_hat, y)
+        self.log('my_loss', loss, prog_bar=True)
+        return {'val_loss': loss}
+
+    def validation_epoch_end(self, outputs):
+        avg_loss = torch.stack([x['val_loss'] for x in outputs]).mean()
+        log = {'val_loss': avg_loss}
+        return {'val_loss': avg_loss, 'log': log}

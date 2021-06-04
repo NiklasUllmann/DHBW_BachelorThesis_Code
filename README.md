@@ -7,10 +7,10 @@ Topic: "Using attention techniques for explainability of deep learning models in
 ## Execute Code
 
 Create Virtual Environment
-```python3 -m venv venv```
+```python -m venv venv```
 
 On Windows, run:
-```tutorial-env\Scripts\activate.bat```
+```venv\Scripts\activate.bat```
 
 On Unix or MacOS, run:
 ```source venv/bin/activate```
@@ -20,7 +20,7 @@ Install requiered packages:
 ```python -m pip install -r requirements.txt```
 
 Run Code:
-```python3 main.py```
+```python main.py```
 
 ## Other Stuff:
 
