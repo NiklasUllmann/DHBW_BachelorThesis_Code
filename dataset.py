@@ -6,6 +6,7 @@ from torchvision import datasets, transforms
 from torch.utils.data.sampler import SubsetRandomSampler
 import torch
 from PIL import Image
+from torchvision.transforms.transforms import RandomHorizontalFlip, RandomVerticalFlip
 
 BATCH_SIZE = 128
 SPLIT = 0.3
@@ -14,6 +15,8 @@ IMG_PATH = "./data"
 TRANSFORMER = transforms.Compose(
         [
             transforms.Resize((320, 320)),
+            transforms.RandomHorizontalFlip(0.1),
+            transforms.RandomVerticalFlip(0.1),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 

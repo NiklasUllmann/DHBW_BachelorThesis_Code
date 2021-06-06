@@ -3,6 +3,10 @@ import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
 import torch
 from vit_pytorch import ViT
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
 
 
 class ViTModel():
@@ -19,7 +23,7 @@ class ViTModel():
         heads=16,
         mlp_dim=2048,
         dropout=0.1,
-        emb_dropout=0.1
+        emb_dropout=0.1,
     ).to(device)
     # loss function
     criterion = torch.nn.CrossEntropyLoss()
@@ -29,6 +33,10 @@ class ViTModel():
     scheduler = StepLR(optimizer, step_size=1, gamma=0.7)
 
     def train(self, train, val, epoch):
+        train_loss_record = []
+        train_acc_record = []
+        val_loss_record = []
+        val_acc_record = []
         for epoch in range(epoch):
             epoch_loss = 0
             epoch_accuracy = 0
@@ -48,6 +56,10 @@ class ViTModel():
                 epoch_accuracy += acc / len(train)
                 epoch_loss += loss / len(train)
 
+            train_acc_record.append(
+                epoch_accuracy.detach().cpu().numpy().flat[0])
+            train_loss_record.append(epoch_loss.detach().cpu().numpy().flat[0])
+
             with torch.no_grad():
                 epoch_val_accuracy = 0
                 epoch_val_loss = 0
@@ -62,6 +74,16 @@ class ViTModel():
                     epoch_val_accuracy += acc / len(val)
                     epoch_val_loss += val_loss / len(val)
 
+                val_acc_record.append(
+                    epoch_val_accuracy.detach().cpu().numpy().flat[0])
+                val_loss_record.append(
+                    epoch_val_loss.detach().cpu().numpy().flat[0])
+
             print(
                 f"Epoch : {epoch+1} - loss : {epoch_loss:.4f} - acc: {epoch_accuracy:.4f} - val_loss : {epoch_val_loss:.4f} - val_acc: {epoch_val_accuracy:.4f}\n"
             )
+
+        result = {"train_loss_record": train_loss_record, "train_acc_record": train_acc_record,
+                  "val_loss_record": val_loss_record, "val_acc_record": val_acc_record}
+        print(result)
+        return result
