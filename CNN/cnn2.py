@@ -7,7 +7,6 @@ import torch
 from vit_pytorch import ViT
 import matplotlib.pyplot as plt
 import pandas as pd
-from torchsummary import summary
 
 
 # Define the CNN architecture
@@ -21,7 +20,7 @@ class CNN(nn.Module):
         self.pool = nn.MaxPool2d(5, 5)
         self.fc1 = nn.Linear(726, 256)
         self.fc2 = nn.Linear(256, 64)
-        self.fc1 = nn.Linear(64, 10)
+        self.fc3 = nn.Linear(64, 10)
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
@@ -65,7 +64,7 @@ class CNNModel():
             #self.model.train()
             for batch_index, (data, target) in enumerate(train):
               # moves tensors to GPU
-                data, target = data.cuda(), target.cuda()
+                data, target = data.to(self.device), target.to(self.device)
         # clears gradients
                 self.optimizer.zero_grad()
         # forward pass
@@ -83,7 +82,7 @@ class CNNModel():
            # self.model.eval()
             for batch_index, (data, target) in enumerate(val):
               # moves tensors to GPU
-                data, target = data.cuda(), target.cuda()
+                data, target = data.to(self.device), target.to(self.device)
         # forward pass
                 output = self.model(data)
         # loss in batch
