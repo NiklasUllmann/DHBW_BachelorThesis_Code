@@ -11,7 +11,7 @@ from torchvision.transforms.transforms import RandomHorizontalFlip, RandomVertic
 BATCH_SIZE = 128
 NUM_WORKERS = 6
 SPLIT = 0.3
-ANNOTATION_PATH = "./data/noisy_imagenette.csv"
+ANNOTATION_PATH = "./data/noisy_imagenette_extended.csv"
 IMG_PATH = "./data"
 TRANSFORMER = transforms.Compose(
         [
@@ -76,6 +76,7 @@ def load_data():
     )
 
     dataset_size = len(data)
+    print(dataset_size)
     indices = list(range(dataset_size))
     split = int(np.floor(SPLIT * dataset_size))
 
