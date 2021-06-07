@@ -1,14 +1,11 @@
 import torch
-import pytorch_lightning as pl
-import torchvision
 
 
 from dataset import ImagenetteDataset, load_data
 from utils import imshow, plot_metrics
 
 
-from CNN.cnn import CNN
-from CNN.cnn2 import CNNModel
+from CNN.cnnmodel import CNNModel
 from ViTModel.vitmodel import ViTModel
 import torch.nn as nn
 
@@ -22,8 +19,8 @@ def main():
     dataiter = iter(train)
     images, labels = dataiter.next()
     conv1 = nn.Conv2d(3, 6, 5)
-    conv2 = nn.Conv2d(6, 6, 5)
-    pool = nn.MaxPool2d(5, 5)
+    conv2 = nn.Conv2d(6, 12, 5)
+    pool = nn.MaxPool2d(2, 2)
     print(images.shape)
 
     x = conv1(images)
@@ -36,7 +33,9 @@ def main():
     print(x.shape)
     """
     cnnModel = CNNModel()
-    metrics = cnnModel.train(train, val, 5)
+    metrics = cnnModel.train(train, val, 20)
+
+    plot_metrics(metrics, "CNN", True)
 
     #imshow(torchvision.utils.make_grid(images2[:4]), labels2[:4])
 

@@ -8,7 +8,7 @@ import torch
 from PIL import Image
 from torchvision.transforms.transforms import RandomHorizontalFlip, RandomVerticalFlip
 
-BATCH_SIZE = 8
+BATCH_SIZE = 128
 NUM_WORKERS = 6
 SPLIT = 0.3
 ANNOTATION_PATH = "./data/noisy_imagenette.csv"

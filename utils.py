@@ -22,11 +22,11 @@ def plot_metrics(metric_map, title, save):
 
     fig.suptitle(title+datetime.today().strftime('%Y_%m_%d'))
     ax1.plot(epochs, loss_train, 'g', label='Training loss')
-    ax1.plot(epochs, loss_val, 'b', label='validation loss')
+    ax1.plot(epochs, loss_val, 'b', label='Validation loss')
     ax1.set_xlabel('Epochs')
     ax1.legend()
     ax2.plot(epochs, acc_train, 'g', label='Training acc')
-    ax2.plot(epochs, acc_val, 'b', label='validation acc')
+    ax2.plot(epochs, acc_val, 'b', label='Validation acc')
     ax2.set_xlabel('Epochs')
     ax2.legend()
 
