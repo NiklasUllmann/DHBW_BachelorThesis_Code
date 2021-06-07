@@ -8,7 +8,9 @@ from utils import imshow, plot_metrics
 
 
 from CNN.cnn import CNN
+from CNN.cnn2 import CNNModel
 from ViTModel.vitmodel import ViTModel
+import torch.nn as nn
 
 
 def main():
@@ -16,6 +18,25 @@ def main():
 
     torch.manual_seed(42)
     train, val = load_data()
+    """
+    dataiter = iter(train)
+    images, labels = dataiter.next()
+    conv1 = nn.Conv2d(3, 6, 5)
+    conv2 = nn.Conv2d(6, 6, 5)
+    pool = nn.MaxPool2d(5, 5)
+    print(images.shape)
+
+    x = conv1(images)
+    print(x.shape)
+    x = pool(x)
+    print(x.shape)
+    x = conv2(x)
+    print(x.shape)
+    x = pool(x)
+    print(x.shape)
+    """
+    cnnModel = CNNModel()
+    metrics = cnnModel.train(train, val, 5)
 
     #imshow(torchvision.utils.make_grid(images2[:4]), labels2[:4])
 

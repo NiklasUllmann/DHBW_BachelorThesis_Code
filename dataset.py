@@ -8,15 +8,16 @@ import torch
 from PIL import Image
 from torchvision.transforms.transforms import RandomHorizontalFlip, RandomVerticalFlip
 
-BATCH_SIZE = 128
+BATCH_SIZE = 64
+NUM_WORKERS = 6
 SPLIT = 0.3
 ANNOTATION_PATH = "./data/noisy_imagenette.csv"
 IMG_PATH = "./data"
 TRANSFORMER = transforms.Compose(
         [
             transforms.Resize((320, 320)),
-            transforms.RandomHorizontalFlip(0.1),
-            transforms.RandomVerticalFlip(0.1),
+            #transforms.RandomHorizontalFlip(0.1),
+            #transforms.RandomVerticalFlip(0.1),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 
@@ -84,8 +85,8 @@ def load_data():
     val_sampler = SubsetRandomSampler(val_indices)
 
     train_loader = torch.utils.data.DataLoader(data, batch_size=BATCH_SIZE, 
-                                               sampler=train_sampler, num_workers=6)
+                                               sampler=train_sampler, num_workers=NUM_WORKERS, pin_memory=True)
     validation_loader = torch.utils.data.DataLoader(data, batch_size=BATCH_SIZE,
-                                                    sampler=val_sampler, num_workers=6)
+                                                    sampler=val_sampler, num_workers=NUM_WORKERS, pin_memory=True)
                                                 
     return train_loader, validation_loader
