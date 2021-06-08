@@ -11,16 +11,17 @@ def main():
     torch.manual_seed(42)
     train, val = load_data()
 
-    
-    cnnModel = CNNModel()
-    metrics = cnnModel.train(train, val, 50)
+    #cnnModel = CNNModel()
+    #metrics = cnnModel.train(train, val, 25)
+    #plot_metrics(metrics, "CNN", True)
+    #torch.cuda.empty_cache()
+
 
 
     vitModel = ViTModel()
-    metrics = vitModel.train(train, val, 50)
-
+    metrics = vitModel.train(train, val, 25)
+    torch.cuda.empty_cache()
     plot_metrics(metrics, "ViT", True)
-    plot_metrics(metrics, "CNN", True)
 
     return 0
 
