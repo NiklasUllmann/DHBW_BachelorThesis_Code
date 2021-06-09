@@ -25,16 +25,16 @@ Run Code:
 ## Other Stuff:
 
 imagenette_map = { 
-    "n01440764" : "tench",
-    "n02102040" : "springer",
-    "n02979186" : "casette_player",
-    "n03000684" : "chain_saw",
-    "n03028079" : "church",
-    "n03394916" : "French_horn",
-    "n03417042" : "garbage_truck",
-    "n03425413" : "gas_pump",
-    "n03445777" : "golf_ball",
-    "n03888257" : "parachute"
+    "n01440764" : "tench", 0
+    "n02102040" : "springer",1
+    "n02979186" : "casette_player",2
+    "n03000684" : "chain_saw",3
+    "n03028079" : "church",4
+    "n03394916" : "French_horn",5
+    "n03417042" : "garbage_truck",6
+    "n03425413" : "gas_pump",7
+    "n03445777" : "golf_ball",8
+    "n03888257" : "parachute"9
 }
 
 ## Acknowladegements:

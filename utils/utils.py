@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
+
 import numpy as np
+import pandas as pd
 from datetime import datetime
 from tqdm.notebook import tqdm
 import torch
@@ -36,11 +39,12 @@ def plot_metrics(metric_map, title, save):
     ax1.set_title("Loss")
     ax2.set_title("Acc")
     if(save):
-        plt.savefig(title+datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
-    plt.show()
+        plt.savefig("./output/"+title +
+                    datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
+    #plt.show()
 
 
-def show_distribution(train, val):
+def show_distribution(train, val, save):
 
     train_counted = torch.tensor(10)
     for data, label in tqdm(train):
@@ -56,4 +60,27 @@ def show_distribution(train, val):
             edgecolor='white', width=barWidth)
     plt.bar(r, val_counted.numpy(), bottom=train_counted.numpy(), color='#557f2d',
             edgecolor='white', width=barWidth)
+    plt.show()
+
+
+def plot_confusion_matrix(conf_mat, title, save):
+
+    plt.figure(figsize=(15, 10))
+
+    class_names = ["tench", "springer",
+                   "casette_player", "chain_saw", "church", "French_horn", "garbage_truck", "gas_pump", "golf_ball", "parachute"]
+    df_cm = pd.DataFrame(conf_mat, index=class_names,
+                         columns=class_names).astype(int)
+    heatmap = sns.heatmap(df_cm, annot=True, fmt="d")
+
+    heatmap.yaxis.set_ticklabels(
+        heatmap.yaxis.get_ticklabels(), rotation=0, ha='right', fontsize=15)
+    heatmap.xaxis.set_ticklabels(
+        heatmap.xaxis.get_ticklabels(), rotation=45, ha='right', fontsize=15)
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+
+    if(save):
+        plt.savefig("./output/"+"Conf_Matr_" + title +
+                    datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
     plt.show()

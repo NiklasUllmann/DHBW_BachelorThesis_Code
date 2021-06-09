@@ -11,4 +11,6 @@ linformer==0.2.1
 einops==0.3.0
 ipywidgets==7.6.3
 vit-pytorch==0.19.4
+seaborn==0.11.1
+shap==0.39.0
 

@@ -8,21 +8,28 @@ from vit_pytorch import ViT
 import matplotlib.pyplot as plt
 import pandas as pd
 from CNN.cnn import CNN
+import numpy as np
 
 
 class CNNModel():
-    def __init__(self):
-        print("init")
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    def __init__(self, load=False, path=None):
 
-    model = CNN().to(device)
+        self.device = torch.device(
+            "cuda:0" if torch.cuda.is_available() else "cpu")
 
-    # loss function
-    criterion = torch.nn.CrossEntropyLoss()
-# optimizer
-    optimizer = optim.Adam(model.parameters(), lr=3e-5)
-# scheduler
-    scheduler = StepLR(optimizer, step_size=1, gamma=0.7)
+        if(not load):
+            self.model = CNN().to(self.device)
+            print("init CNN")
+        else:
+            self.model = torch.load(path)
+            print("load CNN")
+        self.criterion = torch.nn.CrossEntropyLoss()
+        self.optimizer = optim.Adam(self.model.parameters(), lr=3e-5)
+        self.scheduler = StepLR(self.optimizer, step_size=1, gamma=0.7)
+
+
+
+
 
     def train(self, train, val, epoch):
         train_loss_record = []
@@ -78,3 +85,19 @@ class CNNModel():
         result = {"train_loss_record": train_loss_record, "train_acc_record": train_acc_record,
                   "val_loss_record": val_loss_record, "val_acc_record": val_acc_record}
         return result
+
+    def conv_matrix(self, val, class_count):
+        confusion_matrix = np.zeros((class_count, class_count))
+        with torch.no_grad():
+            for i, (inputs, classes) in enumerate(val):
+                inputs = inputs.to(self.device)
+                classes = classes.to(self.device)
+                outputs = self.model(inputs)
+                _, preds = torch.max(outputs, 1)
+                for t, p in zip(classes.view(-1), preds.view(-1)):
+                    confusion_matrix[t.long(), p.long()] += 1
+
+        return confusion_matrix
+
+    def save_model(self, path):
+        torch.save(self.model, path)
