@@ -30,17 +30,18 @@ def main():
     #vitModel.save_model("./savedModels/vit_V1.pt")
 
     cnnModel = CNNModel(load=True, path="./savedModels/cnn.pt")
-    vitModel = ViTModel(load=True, path="./savedModels/vit.pt")
+    #vitModel = ViTModel(load=True, path="./savedModels/vit.pt")
 
-    #single_image = load_single_image("./data/val/n01440764/n01440764_27451.JPEG")
+    #single_image = load_single_image(    "./data/val/n01440764/n01440764_27451.JPEG")
+
+    cnnModel.predict_and_explain(val)
     #vitModel.predict_and_explain(single_image)
 
+        #cnn_matrix = cnnModel.conv_matrix(val, 10)
+        #vit_matrix = vitModel.conv_matrix(val, 10)
 
-    cnn_matrix = cnnModel.conv_matrix(val, 10)
-    vit_matrix = vitModel.conv_matrix(val, 10)
-
-    plot_confusion_matrix(cnn_matrix, "CNN", True)
-    plot_confusion_matrix(vit_matrix, "ViT", True)
+        #plot_confusion_matrix(cnn_matrix, "CNN", True)
+        #plot_confusion_matrix(vit_matrix, "ViT", True)
 
     return 0
 

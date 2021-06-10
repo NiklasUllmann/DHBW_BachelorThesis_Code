@@ -11,6 +11,7 @@ from CNN.cnn import CNN
 import numpy as np
 import shap
 
+
 class CNNModel():
     def __init__(self, load=False, path=None):
 
@@ -24,7 +25,6 @@ class CNNModel():
             self.model = torch.load(path)
             print("load CNN")
 
-            self.model.register_full_backward_hook(self.printnorm)
         self.criterion = torch.nn.CrossEntropyLoss()
         self.optimizer = optim.Adam(self.model.parameters(), lr=3e-5)
         self.scheduler = StepLR(self.optimizer, step_size=1, gamma=0.7)
@@ -106,15 +106,17 @@ class CNNModel():
         images, _ = batch
 
         images = images.to(self.device)
-        background = images[:100]
-        test_images = images[100:103]
+        background = images[:30]
+        test_images = images[30:31]
 
         e = shap.DeepExplainer(self.model, background)
         shap_values = e.shap_values(test_images)
         shap_numpy = [np.swapaxes(np.swapaxes(s, 1, -1), 1, 2)
                       for s in shap_values]
-        test_numpy = np.swapaxes(np.swapaxes(test_images.numpy(), 1, -1), 1, 2)
-        shap.image_plot(shap_numpy, -test_numpy)
+        test_numpy = np.swapaxes(np.swapaxes(
+            test_images.detach().cpu().numpy(), 1, -1), 1, 2)
+
+        shap.image_plot(shap_numpy, -test_numpy, show=True)
 
     def printnorm(self, input, output):
         # input is a tuple of packed inputs
