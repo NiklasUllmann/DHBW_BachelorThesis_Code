@@ -4,11 +4,12 @@ import numpy as np
 from torchvision.io import read_image
 from torchvision import datasets, transforms
 from torch.utils.data.sampler import SubsetRandomSampler
+import torchvision.transforms.functional as TF
 import torch
 from PIL import Image
 from torchvision.transforms.transforms import RandomHorizontalFlip, RandomVerticalFlip
 
-BATCH_SIZE = 128
+BATCH_SIZE = 32
 NUM_WORKERS = 6
 SPLIT = 0.3
 ANNOTATION_PATH = "./data/noisy_imagenette_extended.csv"
@@ -16,8 +17,6 @@ IMG_PATH = "./data"
 TRANSFORMER = transforms.Compose(
         [
             transforms.Resize((320, 320)),
-            #transforms.RandomHorizontalFlip(0.1),
-            #transforms.RandomVerticalFlip(0.1),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 
@@ -91,3 +90,13 @@ def load_data():
                                                     sampler=val_sampler, num_workers=NUM_WORKERS, pin_memory=True)
                                                 
     return train_loader, validation_loader
+
+
+def load_single_image(path):
+
+    image = Image.open(path)
+    x = TF.resize(image, [320, 320])
+    x = TF.to_tensor(x)
+    x = TF.normalize(x, [0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+    x.unsqueeze_(0)
+    return x

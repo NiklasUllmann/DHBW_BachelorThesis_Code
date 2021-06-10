@@ -2,10 +2,12 @@ from tqdm.notebook import tqdm
 import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
 import torch
-from vit_pytorch import ViT
+from vit_pytorch.vit import ViT
+from vit_pytorch.recorder import Recorder
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from x_transformers import Encoder
 
 
 class ViTModel():
@@ -30,6 +32,7 @@ class ViTModel():
         else:
             self.model = torch.load(path)
             print("load ViT")
+
         self.criterion = torch.nn.CrossEntropyLoss()
         self.optimizer = optim.Adam(self.model.parameters(), lr=3e-5)
         self.scheduler = StepLR(self.optimizer, step_size=1, gamma=0.7)
@@ -105,3 +108,13 @@ class ViTModel():
 
     def save_model(self, path):
         torch.save(self.model, path)
+
+    def predict_and_explain(self, img):
+
+        img = img.to(self.device)
+
+        self.model = Recorder(self.model)
+        preds, attns = self.model(img)
+        self.model = self.model.eject()
+
+        return preds, attns

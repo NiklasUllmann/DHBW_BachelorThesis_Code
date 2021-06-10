@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from CNN.cnn import CNN
 import numpy as np
-
+import shap
 
 class CNNModel():
     def __init__(self, load=False, path=None):
@@ -23,19 +23,18 @@ class CNNModel():
         else:
             self.model = torch.load(path)
             print("load CNN")
+
+            self.model.register_full_backward_hook(self.printnorm)
         self.criterion = torch.nn.CrossEntropyLoss()
         self.optimizer = optim.Adam(self.model.parameters(), lr=3e-5)
         self.scheduler = StepLR(self.optimizer, step_size=1, gamma=0.7)
 
-
-
-
-
-    def train(self, train, val, epoch):
+    def train_and_val(self, train, val, epoch):
         train_loss_record = []
         train_acc_record = []
         val_loss_record = []
         val_acc_record = []
+        self.model.train()
         for epoch in range(epoch):
             epoch_loss = 0
             epoch_accuracy = 0
@@ -101,3 +100,31 @@ class CNNModel():
 
     def save_model(self, path):
         torch.save(self.model, path)
+
+    def predict_and_explain(self, val):
+        batch = next(iter(val))
+        images, _ = batch
+
+        images = images.to(self.device)
+        background = images[:100]
+        test_images = images[100:103]
+
+        e = shap.DeepExplainer(self.model, background)
+        shap_values = e.shap_values(test_images)
+        shap_numpy = [np.swapaxes(np.swapaxes(s, 1, -1), 1, 2)
+                      for s in shap_values]
+        test_numpy = np.swapaxes(np.swapaxes(test_images.numpy(), 1, -1), 1, 2)
+        shap.image_plot(shap_numpy, -test_numpy)
+
+    def printnorm(self, input, output):
+        # input is a tuple of packed inputs
+        # output is a Tensor. output.data is the Tensor we are interested
+        print('Inside ' + self.__class__.__name__ + ' forward')
+        print('')
+        print('input: ', type(input))
+        print('input[0]: ', type(input[0]))
+        print('output: ', type(output))
+        print('')
+        print('input size:', input[0].size())
+        print('output size:', output.data.size())
+        print('output norm:', output.data.norm())
