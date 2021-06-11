@@ -22,9 +22,10 @@ class CNNModel():
             self.model = CNN().to(self.device)
             print("init CNN")
         else:
-            self.model = torch.load(path)
+            self.model = torch.load(path, map_location=self.device)
             print("load CNN")
 
+        # self.model.register_full_backward_hook()
         self.criterion = torch.nn.CrossEntropyLoss()
         self.optimizer = optim.Adam(self.model.parameters(), lr=3e-5)
         self.scheduler = StepLR(self.optimizer, step_size=1, gamma=0.7)
@@ -107,7 +108,7 @@ class CNNModel():
 
         images = images.to(self.device)
         background = images[:30]
-        test_images = images[30:31]
+        test_images = images[25:32]
 
         e = shap.DeepExplainer(self.model, background)
         shap_values = e.shap_values(test_images)
@@ -117,16 +118,3 @@ class CNNModel():
             test_images.detach().cpu().numpy(), 1, -1), 1, 2)
 
         shap.image_plot(shap_numpy, -test_numpy, show=True)
-
-    def printnorm(self, input, output):
-        # input is a tuple of packed inputs
-        # output is a Tensor. output.data is the Tensor we are interested
-        print('Inside ' + self.__class__.__name__ + ' forward')
-        print('')
-        print('input: ', type(input))
-        print('input[0]: ', type(input[0]))
-        print('output: ', type(output))
-        print('')
-        print('input size:', input[0].size())
-        print('output size:', output.data.size())
-        print('output norm:', output.data.norm())

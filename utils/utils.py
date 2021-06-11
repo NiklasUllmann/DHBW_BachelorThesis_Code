@@ -83,4 +83,4 @@ def plot_confusion_matrix(conf_mat, title, save):
     if(save):
         plt.savefig("./output/"+"Conf_Matr_" + title +
                     datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
-    plt.show()
+    #plt.show()

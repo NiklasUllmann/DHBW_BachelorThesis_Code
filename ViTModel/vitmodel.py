@@ -30,7 +30,7 @@ class ViTModel():
             ).to(self.device)
             print("init ViT")
         else:
-            self.model = torch.load(path)
+            self.model = torch.load(path, map_location=self.device)
             print("load ViT")
 
         self.criterion = torch.nn.CrossEntropyLoss()

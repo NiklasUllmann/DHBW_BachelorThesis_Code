@@ -17,10 +17,10 @@ def main():
     train, val = load_data()
 
     #cnnModel = CNNModel()
-    #metrics = cnnModel.train(train, val, 25)
+    #metrics = cnnModel.train_and_val(train, val, 50)
     #plot_metrics(metrics, "CNN", True)
 
-    # cnnModel.save_model("./savedModels/cnn.pt")
+    #cnnModel.save_model("./savedModels/cnn.pt")
 
     torch.cuda.empty_cache()
 
@@ -29,7 +29,7 @@ def main():
     #plot_metrics(metrics, "ViT", True)
     #vitModel.save_model("./savedModels/vit_V1.pt")
 
-    cnnModel = CNNModel(load=True, path="./savedModels/cnn.pt")
+    cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch.pt")
     #vitModel = ViTModel(load=True, path="./savedModels/vit.pt")
 
     #single_image = load_single_image(    "./data/val/n01440764/n01440764_27451.JPEG")
