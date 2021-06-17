@@ -107,8 +107,8 @@ class CNNModel():
         images, _ = batch
 
         images = images.to(self.device)
-        background = images[:30]
-        test_images = images[25:32]
+        background = images[:63]
+        test_images = images[62:64]
 
         e = shap.DeepExplainer(self.model, background)
         shap_values = e.shap_values(test_images)

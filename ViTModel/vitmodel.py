@@ -19,7 +19,7 @@ class ViTModel():
         if(not load):
             self.model = ViT(
                 image_size=320,
-                patch_size=32,
+                patch_size=10,
                 num_classes=10,
                 dim=1024,
                 depth=6,
@@ -109,7 +109,7 @@ class ViTModel():
     def save_model(self, path):
         torch.save(self.model, path)
 
-    def predict_and_explain(self, img):
+    def predict_and_attents(self, img):
 
         img = img.to(self.device)
 
