@@ -19,7 +19,7 @@ class ViTModel():
         if(not load):
             self.model = ViT(
                 image_size=320,
-                patch_size=10,
+                patch_size=16,
                 num_classes=10,
                 dim=1024,
                 depth=6,

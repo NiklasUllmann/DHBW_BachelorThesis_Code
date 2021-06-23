@@ -67,9 +67,8 @@ class ImagenetteDataset(torch.utils.data.Dataset):
         return imagenette_map[string]
 
 
+def load_data(batch_size):
 
-def load_data():
-    
     data = ImagenetteDataset(
         ANNOTATION_PATH, IMG_PATH, transform=TRANSFORMER
     )
@@ -84,9 +83,9 @@ def load_data():
     train_sampler = SubsetRandomSampler(train_indices)
     val_sampler = SubsetRandomSampler(val_indices)
 
-    train_loader = torch.utils.data.DataLoader(data, batch_size=BATCH_SIZE, 
+    train_loader = torch.utils.data.DataLoader(data, batch_size=batch_size,
                                                sampler=train_sampler, num_workers=NUM_WORKERS, pin_memory=True)
-    validation_loader = torch.utils.data.DataLoader(data, batch_size=BATCH_SIZE,
+    validation_loader = torch.utils.data.DataLoader(data, batch_size=batch_size,
                                                     sampler=val_sampler, num_workers=NUM_WORKERS, pin_memory=True)
                                                 
     return train_loader, validation_loader
