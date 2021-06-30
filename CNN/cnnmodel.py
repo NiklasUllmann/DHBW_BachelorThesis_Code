@@ -107,25 +107,9 @@ class CNNModel():
         images, _ = batch
 
         images = images.to(self.device)
-        background = images[:79]
-        test_images = images[79:80]
-
-        e = shap.DeepExplainer(self.model, background)
-        shap_values = e.shap_values(test_images)
-        shap_numpy = [np.swapaxes(np.swapaxes(s, 1, -1), 1, 2)
-                      for s in shap_values]
-        test_numpy = np.swapaxes(np.swapaxes(
-            test_images.detach().cpu().numpy(), 1, -1), 1, 2)
-
-        shap.image_plot(shap_numpy, -test_numpy, show=True)
-
-    def predict_and_explain_grad(self, val):
-        batch = next(iter(val))
-        images, _ = batch
-
-        images = images.to(self.device)
-        background = images[:79]
-        test_images = images[79:80]
+        background = torch.full((1, 3, 320, 320), 255,
+                                device=self.device, dtype=torch.float32)
+        test_images = images[0:4]
 
         e = shap.DeepExplainer(self.model, background)
         shap_values = e.shap_values(test_images)
