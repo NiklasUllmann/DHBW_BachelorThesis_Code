@@ -1,0 +1,44 @@
+{
+    "img": [
+        {
+            "path": "./data/val/n01440764/n01440764_27451.JPEG",
+            "class": 0
+        },
+        {
+            "path": "./data/val/n02102040/ILSVRC2012_val_00014280.JPEG",
+            "class": 1
+        },
+        {
+            "path": "./data/val/n02979186/ILSVRC2012_val_00043121.JPEG",
+            "class": 2
+        },
+        {
+            "path": "./data/val/n03000684/ILSVRC2012_val_00029211.JPEG",
+            "class": 3
+        },
+        {
+            "path": "./data/val/n03028079/ILSVRC2012_val_00004912.JPEG",
+            "class": 4
+        },
+        {
+            "path": "./data/val/n03394916/ILSVRC2012_val_00025761.JPEG",
+            "class": 5
+        },
+        {
+            "path": "./data/val/n03417042/ILSVRC2012_val_00006922.JPEG",
+            "class": 6
+        },
+        {
+            "path": "./data/val/n03425413/ILSVRC2012_val_00004452.JPEG",
+            "class": 7
+        },
+        {
+            "path": "./data/val/n03445777/ILSVRC2012_val_00014102.JPEG",
+            "class": 8
+        },
+        {
+            "path": "./data/val/n03888257/n03888257_12.JPEG",
+            "class": 9
+        }
+    ]
+}

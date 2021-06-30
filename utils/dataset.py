@@ -94,8 +94,19 @@ def load_data(batch_size):
 def load_single_image(path):
 
     image = Image.open(path)
+
+    # Create SingleTensor
     x = TF.resize(image, [320, 320])
     x = TF.to_tensor(x)
     x = TF.normalize(x, [0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
     x.unsqueeze_(0)
-    return x
+
+
+    #Create PilImg
+    y = TF.resize(image, [320, 320])
+    y = TF.to_tensor(y)
+    y = TF.normalize(y, [0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+    y = TF.to_pil_image(y)
+
+
+    return x, y

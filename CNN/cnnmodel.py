@@ -10,6 +10,9 @@ import pandas as pd
 from CNN.cnn import CNN
 import numpy as np
 import shap
+from lime import lime_image
+from torchvision.transforms import transforms
+
 
 
 class CNNModel():
@@ -119,3 +122,36 @@ class CNNModel():
             test_images.detach().cpu().numpy(), 1, -1), 1, 2)
 
         shap.image_plot(shap_numpy, -test_numpy, show=True)
+
+    def lime_and_explain(self, pil_img):
+
+        explainer = lime_image.LimeImageExplainer()
+        explanation = explainer.explain_instance(np.array(pil_img), 
+                                         self.batch_predict, # classification function
+                                         top_labels=1, 
+                                         hide_color=0, 
+                                         num_samples=1000)
+        
+        temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
+
+        return temp, mask
+    
+    def batch_predict(self, imgs):
+        self.model.eval()
+        preprocess_transform = self.get_preprocess_transform()
+
+        batch = torch.stack(tuple(preprocess_transform(i) for i in imgs), dim=0)
+
+        batch = batch.to(self.device)
+    
+        logits = self.model(batch)
+        probs = F.softmax(logits, dim=1)
+        return probs.detach().cpu().numpy()
+    
+    def get_preprocess_transform(self):
+        transf = transforms.Compose([
+        transforms.ToTensor(),
+        ])    
+
+        return transf    
+
