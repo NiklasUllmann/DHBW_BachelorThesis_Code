@@ -129,8 +129,9 @@ class CNNModel():
         explanation = explainer.explain_instance(np.array(pil_img), 
                                          self.batch_predict, # classification function
                                          top_labels=1, 
-                                         hide_color=0, 
-                                         num_samples=1000)
+                                         hide_color=1, 
+                                         num_samples=1000,
+                                         num_features=100)
         
         temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
 

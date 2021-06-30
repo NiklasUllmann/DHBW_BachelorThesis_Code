@@ -13,6 +13,7 @@ from matplotlib import cm
 
 from PIL import Image
 import json
+import numpy as np
 
 
 def main():
@@ -42,11 +43,12 @@ def main():
         data = json.load(json_file)
         for p in data["img"]:
             tensor, pil = load_single_image(p["path"])
-            preds, attn = vitModel.predict_and_attents(tensor)
-            visualise_attention(attn, 16, 20, 320, p["path"])
+            #preds, attn = vitModel.predict_and_attents(tensor)
+            #visualise_attention(attn, 16, 20, 320, p["path"])
+
 
             temp, mask = cnnModel.lime_and_explain(pil)
-            vis_and_save(mask, temp)
+            vis_and_save(mask, temp, p["path"])
 
 
 
