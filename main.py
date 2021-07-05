@@ -23,7 +23,9 @@ def main():
     
     torch.cuda.empty_cache()
     torch.manual_seed(42)
-    train, val = load_data(batch_size=16)
+    train, val, test = load_data(batch_size=256)
+
+    show_distribution(train, val, test, True)
 
     # cnnModel = CNNModel()
     # metrics = cnnModel.train_and_val(train, val, 50)

@@ -8,10 +8,12 @@ import torchvision.transforms.functional as TF
 import torch
 from PIL import Image, ImageOps
 from torchvision.transforms.transforms import RandomHorizontalFlip, RandomVerticalFlip
+import random
 
 BATCH_SIZE = 4
 NUM_WORKERS = 6
-SPLIT = 0.3
+SPLIT = 0.8
+SPLIT2 = 0.9
 ANNOTATION_PATH = "./data/noisy_imagenette_extended.csv"
 IMG_PATH = "./data"
 TRANSFORMER = transforms.Compose(
@@ -75,20 +77,28 @@ def load_data(batch_size):
 
     dataset_size = len(data)
     print(dataset_size)
-    indices = list(range(dataset_size))
+    list_of_indices = list(range(dataset_size))
+    random.shuffle(list_of_indices)
+    indices = list_of_indices
     split = int(np.floor(SPLIT * dataset_size))
+    split2 = int(np.floor(SPLIT2 * dataset_size))
 
-    train_indices, val_indices = indices[split:], indices[:split]
+    train_indices, val_indices, test_indices = indices[:
+                                                       split], indices[split:split2], indices[split2:]
 
     train_sampler = SubsetRandomSampler(train_indices)
     val_sampler = SubsetRandomSampler(val_indices)
+    test_sampler = SubsetRandomSampler(test_indices)
 
     train_loader = torch.utils.data.DataLoader(data, batch_size=batch_size,
                                                sampler=train_sampler, num_workers=NUM_WORKERS, pin_memory=True)
     validation_loader = torch.utils.data.DataLoader(data, batch_size=batch_size,
                                                     sampler=val_sampler, num_workers=NUM_WORKERS, pin_memory=True)
+
+    test_loader = torch.utils.data.DataLoader(data, batch_size=batch_size,
+                                                    sampler=test_sampler, num_workers=NUM_WORKERS, pin_memory=True)
                                                 
-    return train_loader, validation_loader
+    return train_loader, validation_loader, test_loader
 
 
 def load_single_image(path):

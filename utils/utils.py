@@ -47,23 +47,36 @@ def plot_metrics(metric_map, title, save):
     #plt.show()
 
 
-def show_distribution(train, val, save):
+def show_distribution(train, val, test, save):
 
     train_counted = torch.tensor(10)
     for data, label in tqdm(train):
-        train_counted = train_counted + torch.bincount(label)
+        train_counted = train_counted + torch.bincount(label, minlength=10)
 
     val_counted = torch.tensor(10)
     for data, label in tqdm(val):
-        val_counted = val_counted + torch.bincount(label)
+        val_counted = val_counted + torch.bincount(label, minlength=10)
+
+    test_counted = torch.tensor(10)
+    for data, label in tqdm(test):
+        test_counted = test_counted + torch.bincount(label, minlength=10)
 
     r = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     barWidth = 1
-    plt.bar(r, train_counted.numpy(), color='#7f6d5f',
-            edgecolor='white', width=barWidth)
-    plt.bar(r, val_counted.numpy(), bottom=train_counted.numpy(), color='#557f2d',
-            edgecolor='white', width=barWidth)
-    plt.show()
+    plt.bar(r, train_counted.numpy(), color='#264653',
+            edgecolor='white', width=barWidth, label="Train")
+    plt.bar(r, val_counted.numpy(), bottom=train_counted.numpy(),
+            color='#E9C46A',           edgecolor='white', width=barWidth, label="Val")
+    plt.bar(r, test_counted.numpy(), bottom=val_counted.numpy() + train_counted.numpy(),
+            color='#E76F51', edgecolor='white', width=barWidth, label="Test")
+
+    plt.legend()
+    plt.xticks(r)
+    plt.xlabel("Classes")
+    plt.ylabel("Image Count")
+    if(save):
+        plt.savefig("./output/"+"data_Dist" +
+                    datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
 
 
 def plot_confusion_matrix(conf_mat, title, save):
