@@ -6,6 +6,9 @@ import pandas as pd
 from datetime import datetime
 from tqdm.notebook import tqdm
 import torch
+import json
+from utils.dataset import just_load_resize_pil, load_single_image, pil_augmentation
+from PIL import Image
 
 
 def imshow(img, label):
@@ -84,3 +87,72 @@ def plot_confusion_matrix(conf_mat, title, save):
         plt.savefig("./output/"+"Conf_Matr_" + title +
                     datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
     #plt.show()
+
+
+def plot_class_images():
+
+    fig, axes = plt.subplots(nrows=2, ncols=5, squeeze=False)
+
+    with open('./utils/constants.json') as json_file:
+        data = json.load(json_file)
+        for p in data["img"]:
+
+            pil = just_load_resize_pil(p["path"])
+            a = np.asarray(pil)
+
+            axes[p["row"], p["col"]].imshow(a)
+            axes[p["row"], p["col"]].set_title(p["name"], fontsize=10)
+
+            axes[p["row"], p["col"]].axis('off')
+
+    fig.tight_layout()
+    fig.savefig('./output/Class_Images.png')
+
+
+def plot_aumentation():
+    x, y, z = pil_augmentation(
+        "./data/val/n03417042/ILSVRC2012_val_00006922.JPEG")
+
+    fig, axes = plt.subplots(nrows=1, ncols=3, squeeze=False)
+
+    axes[0, 0].imshow(np.asarray(x))
+    axes[0, 0].set_title("Original", fontsize=10)
+    axes[0, 0].axis('off')
+
+    axes[0, 1].imshow(np.asarray(y))
+    axes[0, 1].set_title("Flipped", fontsize=10)
+    axes[0, 1].axis('off')
+
+    axes[0, 2].imshow(np.asarray(z))
+    axes[0, 2].set_title("Mirrored", fontsize=10)
+    axes[0, 2].axis('off')
+
+    fig.tight_layout()
+    fig.savefig('./output/Class_Images_Augmentation.png')
+
+
+def plot_data_preprocessing():
+    path = "./data/val/n03425413/ILSVRC2012_val_00004452.JPEG"
+
+    o_image = Image.open(path)
+
+    resized_img = just_load_resize_pil(path)
+    x, normalized = load_single_image(path)
+
+    fig, axes = plt.subplots(
+        nrows=1, ncols=3, squeeze=False, constrained_layout=True)
+
+    axes[0, 0].imshow(np.asarray(o_image))
+    axes[0, 0].set_title("Original", fontsize=10)
+    axes[0, 0].axis('off')
+
+    axes[0, 1].imshow(np.asarray(resized_img))
+    axes[0, 1].set_title("Resized", fontsize=10)
+    axes[0, 1].axis('off')
+
+    axes[0, 2].imshow(np.asarray(normalized))
+    axes[0, 2].set_title("Normalized", fontsize=10)
+    axes[0, 2].axis('off')
+
+    fig.tight_layout()
+    fig.savefig('./output/Class_Images_PreProcessing.png')

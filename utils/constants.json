@@ -2,43 +2,77 @@
     "img": [
         {
             "path": "./data/val/n01440764/n01440764_27451.JPEG",
-            "class": 0
+            "class": 0,
+            "col": 0,
+            "row": 0,
+            "name": "tench (0)"
         },
         {
             "path": "./data/val/n02102040/ILSVRC2012_val_00014280.JPEG",
-            "class": 1
+            "class": 1,
+            "col": 1,
+            "row": 0,
+            "name": "springer (1)"
         },
         {
             "path": "./data/val/n02979186/ILSVRC2012_val_00043121.JPEG",
-            "class": 2
+            "class": 2,
+            "col": 2,
+            "row": 0,
+            "name": "casette_player (2)"
         },
         {
             "path": "./data/val/n03000684/ILSVRC2012_val_00029211.JPEG",
             "class": 3
+            ,
+            "col": 3,
+            "row": 0,
+            "name": "chain_saw (3)"
         },
         {
             "path": "./data/val/n03028079/ILSVRC2012_val_00004912.JPEG",
             "class": 4
+            ,
+            "col": 4,
+            "row": 0,
+            "name": "church (4)"
         },
         {
             "path": "./data/val/n03394916/n03394916_180.JPEG",
-            "class": 5
+            "class": 5,
+            "col": 0,
+            "row": 1,
+            "name": "french_horn (5)"
         },
         {
             "path": "./data/val/n03417042/ILSVRC2012_val_00006922.JPEG",
-            "class": 6
+            "class": 6,
+            "col": 1,
+            "row": 1,
+            "name": "garbage_truck (6)"
         },
         {
             "path": "./data/val/n03425413/ILSVRC2012_val_00004452.JPEG",
-            "class": 7
+            "class": 7,
+            "col": 2,
+            "row": 1,
+            "name": "gas_pump (7)"
         },
         {
             "path": "./data/val/n03445777/ILSVRC2012_val_00014102.JPEG",
             "class": 8
+            ,
+            "col": 3,
+            "row": 1,
+            "name": "golf_ball (8)"
         },
         {
             "path": "./data/val/n03888257/n03888257_12.JPEG",
             "class": 9
+            ,
+            "col": 4,
+            "row": 1,
+            "name": "parachute (9)"
         }
     ]
 }

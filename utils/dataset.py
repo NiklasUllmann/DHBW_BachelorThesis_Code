@@ -6,7 +6,7 @@ from torchvision import datasets, transforms
 from torch.utils.data.sampler import SubsetRandomSampler
 import torchvision.transforms.functional as TF
 import torch
-from PIL import Image
+from PIL import Image, ImageOps
 from torchvision.transforms.transforms import RandomHorizontalFlip, RandomVerticalFlip
 
 BATCH_SIZE = 4
@@ -112,5 +112,25 @@ def just_load_resize_pil(path):
     x = TF.to_tensor(x)
     x = TF.to_pil_image(x)
     return x
+
+
+def pil_augmentation(path):
+    image = Image.open(path)
+    im_flip = ImageOps.flip(image)
+    im_mirror = ImageOps.mirror(image)
+
+    x = TF.resize(image, [320, 320])
+    x = TF.to_tensor(x)
+    x = TF.to_pil_image(x)
+
+    y = TF.resize(im_flip, [320, 320])
+    y = TF.to_tensor(y)
+    y = TF.to_pil_image(y)
+
+    z = TF.resize(im_mirror, [320, 320])
+    z = TF.to_tensor(z)
+    z = TF.to_pil_image(z)
+
+    return x, y, z
 
 
