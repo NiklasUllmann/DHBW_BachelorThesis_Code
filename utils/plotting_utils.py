@@ -10,6 +10,8 @@ import json
 from utils.dataset import just_load_resize_pil, load_single_image, pil_augmentation
 from PIL import Image
 
+OUTPUT_PATH = "./output/"
+
 
 def imshow(img, label):
     npimg = img.numpy()
@@ -42,7 +44,7 @@ def plot_metrics(metric_map, title, save):
     ax1.set_title("Loss")
     ax2.set_title("Acc")
     if(save):
-        plt.savefig("./output/"+title +
+        plt.savefig(OUTPUT_PATH+title +
                     datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
     #plt.show()
 
@@ -75,7 +77,7 @@ def show_distribution(train, val, test, save):
     plt.xlabel("Classes")
     plt.ylabel("Image Count")
     if(save):
-        plt.savefig("./output/"+"data_Dist" +
+        plt.savefig(OUTPUT_PATH+"data_Dist" +
                     datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
 
 
@@ -97,7 +99,7 @@ def plot_confusion_matrix(conf_mat, title, save):
     plt.xlabel('Predicted label')
 
     if(save):
-        plt.savefig("./output/"+"Conf_Matr_" + title +
+        plt.savefig(OUTPUT_PATH+"Conf_Matr_" + title +
                     datetime.today().strftime('%Y_%m_%d_%H_%M')+'.png')
     #plt.show()
 
@@ -119,7 +121,7 @@ def plot_class_images():
             axes[p["row"], p["col"]].axis('off')
 
     fig.tight_layout()
-    fig.savefig('./output/Class_Images.png')
+    fig.savefig(OUTPUT_PATH+'Class_Images.png')
 
 
 def plot_aumentation():
@@ -141,7 +143,7 @@ def plot_aumentation():
     axes[0, 2].axis('off')
 
     fig.tight_layout()
-    fig.savefig('./output/Class_Images_Augmentation.png')
+    fig.savefig(OUTPUT_PATH+'Class_Images_Augmentation.png')
 
 
 def plot_data_preprocessing():
@@ -168,4 +170,4 @@ def plot_data_preprocessing():
     axes[0, 2].axis('off')
 
     fig.tight_layout()
-    fig.savefig('./output/Class_Images_PreProcessing.png')
+    fig.savefig(OUTPUT_PATH+'Class_Images_PreProcessing.png')

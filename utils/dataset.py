@@ -17,13 +17,14 @@ SPLIT2 = 0.9
 ANNOTATION_PATH = "./data/noisy_imagenette_extended.csv"
 IMG_PATH = "./data"
 TRANSFORMER = transforms.Compose(
-        [
-            transforms.Resize((320, 320)),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+    [
+        transforms.Resize((320, 320)),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 
-        ]
-    )
+    ]
+)
+
 
 class ImagenetteDataset(torch.utils.data.Dataset):
     def __init__(
@@ -42,10 +43,9 @@ class ImagenetteDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
         image = Image.open(img_path)
-        # image = read_image(img_path)
         if image.mode != "RGB":
             image = image.convert("RGB")
-        
+
         label = self.get_string_for_label(self.img_labels.iloc[idx, 1])
 
         if self.transform:
@@ -96,8 +96,8 @@ def load_data(batch_size):
                                                     sampler=val_sampler, num_workers=NUM_WORKERS, pin_memory=True)
 
     test_loader = torch.utils.data.DataLoader(data, batch_size=batch_size,
-                                                    sampler=test_sampler, num_workers=NUM_WORKERS, pin_memory=True)
-                                                
+                                              sampler=test_sampler, num_workers=NUM_WORKERS, pin_memory=True)
+
     return train_loader, validation_loader, test_loader
 
 
@@ -109,12 +109,13 @@ def load_single_image(path):
     x = TF.resize(image, [320, 320])
     x = TF.to_tensor(x)
     x = TF.normalize(x, [0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
-    
-    #Create PilImg
+
+    # Create PilImg
     y = TF.to_pil_image(x)
 
     x.unsqueeze_(0)
     return x, y
+
 
 def just_load_resize_pil(path):
     image = Image.open(path)
@@ -144,3 +145,20 @@ def pil_augmentation(path):
     return x, y, z
 
 
+def load_image_and_mirror(path):
+    image = Image.open(path)
+
+    # Create SingleTensor
+    x = TF.resize(image, [320, 320])
+    x = TF.to_tensor(x)
+    x = TF.normalize(x, [0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+
+    x_mir = TF.hflip(x)
+
+    # Create PilImg
+    y = TF.to_pil_image(x)
+    y_mir = TF.to_pil_image(x_mir)
+
+    x.unsqueeze_(0)
+    x_mir.unsqueeze_(0)
+    return x, x_mir, y, y_mir
