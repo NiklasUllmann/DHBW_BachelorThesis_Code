@@ -171,3 +171,22 @@ def plot_data_preprocessing():
 
     fig.tight_layout()
     fig.savefig(OUTPUT_PATH+'Class_Images_PreProcessing.png')
+
+
+def plot_patches(path):
+
+    patch_size = 16
+    x = 0
+    y = 0
+    max_size = 320
+    resized_img = just_load_resize_pil(path)
+
+    for i in range(int(320 / 16)):
+        plt.plot([i*patch_size, i*patch_size], [0, 320],
+                 color="white", linewidth=1)
+        plt.plot([0, 320], [i*patch_size, i*patch_size],
+                 color="white", linewidth=1)
+
+    plt.imshow(resized_img)
+    plt.axis("off")
+    plt.savefig(OUTPUT_PATH+"patches.png")

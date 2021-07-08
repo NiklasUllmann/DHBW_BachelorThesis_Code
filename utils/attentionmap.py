@@ -8,7 +8,7 @@ def create_uuid():
     return str(uuid.uuid4().hex[:10])
 
 
-def generate_attention_map(att_tensor):
+def generate_attention_map(att_tensor, patches_per_row, patch_size):
 
     attn = torch.squeeze(input=att_tensor, dim=0)
     attn = torch.mean(attn, dim=[0, 1])
@@ -17,15 +17,17 @@ def generate_attention_map(att_tensor):
     attn = attn[:-1].copy()
     attn = np.interp(attn, (attn.min(), attn.max()), (0, +1))
 
-    return attn
+    b = np.reshape(attn, (patches_per_row, patches_per_row))
+    b = np.kron(b, np.ones((patch_size, patch_size), dtype=b.dtype))
+
+    return b
 
 
 def visualise_attention(att_tensor, patch_size, patches_per_row, img_size, orig_path):
 
-    attn = generate_attention_map(att_tensor=att_tensor)
+    b= generate_attention_map(att_tensor=att_tensor, patches_per_row=patches_per_row, patch_size=patch_size)
 
-    b = np.reshape(attn, (patches_per_row, patches_per_row))
-    b = np.kron(b, np.ones((patch_size, patch_size), dtype=b.dtype))
+    
     im1 = Image.fromarray(b*255)
 
     rgbimg = Image.new("RGB", im1.size)

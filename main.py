@@ -2,7 +2,7 @@ import torch
 from utils.dataset import ImagenetteDataset, just_load_resize_pil, load_data, load_single_image, load_image_and_mirror
 from utils.attentionmap import visualise_attention
 from utils.lime_vis import vis_and_save
-from utils.plotting_utils import imshow, plot_aumentation, plot_class_images, plot_confusion_matrix, plot_data_preprocessing, plot_metrics, show_distribution
+from utils.plotting_utils import imshow, plot_aumentation, plot_class_images, plot_confusion_matrix, plot_data_preprocessing, plot_metrics, show_distribution, plot_patches
 from CNN.cnnmodel import CNNModel
 from ViTModel.vitmodel import ViTModel
 import time
@@ -18,7 +18,8 @@ import json
 import numpy as np
 import matplotlib.image as mpimg
 
-from benchmarks.consistency import cnn_consitency
+from benchmarks.consistency import cnn_consitency, vit_consitency
+import torch.nn as nn
 
 
 def main():
@@ -31,10 +32,10 @@ def main():
 
     torch.cuda.empty_cache()
 
+
     # Load current models
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
-
 
     path = []
     with open('./utils/constants.json') as json_file:
@@ -49,16 +50,10 @@ def main():
             temp, mask = cnnModel.lime_and_explain(pil)
             vis_and_save(mask, temp, p["path"])
             """
-    
 
-    
-
-    
-
-    print(cnn_consitency(cnnModel, path))
-    
-    
-
+    # for i in [0.5, 0.4, 0.3, 0.2, 0.15, 0.1, 0.075, 0.05, 0.025, 0.01]:
+    # print(str(i) + str(vit_consitency(vitModel, path, i)))
+    # print(cnn_consitency(cnnModel, path))
 
     return 0
 
@@ -74,7 +69,6 @@ def train_and_eval_models(train, test, val):
     vitModel = ViTModel()
     vit_metrics = vitModel.train(train, val, 16)
     vitModel.save_model("./savedModels/vit_smallerPatches.pt")
-
 
     # Eval Model with Test
     plot_metrics(cnn_metrics, "CNN", True)

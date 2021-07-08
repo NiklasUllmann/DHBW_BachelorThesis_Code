@@ -37,6 +37,12 @@ imagenette_map = {
     "n03888257" : "parachute"9
 }
 
+torch.Size([256, 3, 320, 320])
+torch.Size([256, 6, 316, 316])
+torch.Size([256, 6, 158, 158])
+torch.Size([256, 6, 154, 154])
+torch.Size([256, 6, 77, 77])
+
 ## Acknowladegements:
 
 - Dataset ImageNette:
