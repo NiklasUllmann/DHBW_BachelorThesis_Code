@@ -28,7 +28,7 @@ def main():
     # empty cache and load train, val test
     torch.cuda.empty_cache()
     torch.manual_seed(42)
-    train, val, test = load_data(batch_size=256)
+    train, val, test = load_data(batch_size=16)
 
     torch.cuda.empty_cache()
 
@@ -37,24 +37,28 @@ def main():
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
+    cnnModel.f1_score(test)
+    vitModel.f1_score(test)
+
+    """
     path = []
     with open('./utils/constants.json') as json_file:
         data = json.load(json_file)
         for p in data["img"]:
 
             path.append(p["path"])
-            """
+            
             tensor, pil = load_single_image(p["path"])
             preds, attn = vitModel.predict_and_attents(tensor)
             visualise_attention(attn, 16, 20, 320, p["path"])
             temp, mask = cnnModel.lime_and_explain(pil)
             vis_and_save(mask, temp, p["path"])
-            """
+            
 
     # for i in [0.5, 0.4, 0.3, 0.2, 0.15, 0.1, 0.075, 0.05, 0.025, 0.01]:
     # print(str(i) + str(vit_consitency(vitModel, path, i)))
     # print(cnn_consitency(cnnModel, path))
-
+    """
     return 0
 
 

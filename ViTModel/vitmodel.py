@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from x_transformers import Encoder
+from sklearn.metrics import f1_score
+
 
 
 class ViTModel():
@@ -118,3 +120,21 @@ class ViTModel():
         self.model = self.model.eject()
 
         return preds, attns
+
+    def f1_score(self, batch):
+
+        label_array = []
+        preds_array = []
+
+        for data, label in batch:
+            data = data.to(self.device)
+            label = label.to(self.device)
+
+            output = self.model(data)
+
+            label_array = np.append(label_array, label.detach().cpu().numpy())
+            preds_array = np.append(
+                preds_array, output.argmax(dim=1).detach().cpu().numpy())
+
+        if (len(label_array) == len(preds_array)):
+            print(f1_score(label_array, preds_array, average="macro"))

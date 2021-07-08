@@ -12,6 +12,8 @@ import numpy as np
 import shap
 from lime import lime_image
 from torchvision.transforms import transforms
+from sklearn.metrics import f1_score
+
 
 
 
@@ -156,3 +158,20 @@ class CNNModel():
 
         return transf    
 
+    def f1_score(self, batch):
+
+        label_array = []
+        preds_array = []
+
+        for data, label in batch:
+            data = data.to(self.device)
+            label = label.to(self.device)
+
+            output = self.model(data)
+
+            label_array = np.append(label_array, label.detach().cpu().numpy())
+            preds_array = np.append(
+                preds_array, output.argmax(dim=1).detach().cpu().numpy())
+
+        if (len(label_array) == len(preds_array)):
+            print(f1_score(label_array, preds_array, average="macro"))
