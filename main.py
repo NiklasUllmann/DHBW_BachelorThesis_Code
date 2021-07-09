@@ -1,6 +1,6 @@
 import torch
 from utils.dataset import ImagenetteDataset, just_load_resize_pil, load_data, load_single_image, load_image_and_mirror
-from utils.attentionmap import visualise_attention
+from utils.attentionmap import visualise_attention, generate_attention_map
 from utils.lime_vis import vis_and_save
 from utils.plotting_utils import imshow, plot_aumentation, plot_class_images, plot_confusion_matrix, plot_data_preprocessing, plot_metrics, show_distribution, plot_patches
 from CNN.cnnmodel import CNNModel
@@ -20,6 +20,10 @@ import matplotlib.image as mpimg
 
 from benchmarks.consistency import cnn_consitency, vit_consitency
 import torch.nn as nn
+from findpeaks import findpeaks
+# Standard imports
+import cv2
+
 
 
 def main():
@@ -37,8 +41,36 @@ def main():
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    cnnModel.f1_score(test)
-    vitModel.f1_score(test)
+    # cnnModel.f1_score(test)
+    # vitModel.f1_score(test)
+
+    x, x_mir, y, y_mir = load_image_and_mirror(
+        "./data/val/n02102040/ILSVRC2012_val_00014280.JPEG")
+    preds, attn = vitModel.predict_and_attents(x)
+    a_map = generate_attention_map(attn, patches_per_row=20, patch_size=16)
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    from skimage import measure
+
+    # Find contours at a constant value of 0.8
+    contours = measure.find_contours(a_map, 0.5)
+
+    # Display the image and plot all contours found
+    fig, ax = plt.subplots()
+    ax.imshow(a_map, cmap=plt.cm.gray)
+
+    for contour in contours:
+        ax.plot(contour[:, 1], contour[:, 0], linewidth=2)
+
+    ax.axis('image')
+    ax.set_xticks([])
+    ax.set_yticks([])
+    plt.show()
+
+
+
 
     """
     path = []

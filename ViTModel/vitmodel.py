@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from x_transformers import Encoder
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, accuracy_score
 
 
 
@@ -121,7 +121,7 @@ class ViTModel():
 
         return preds, attns
 
-    def f1_score(self, batch):
+    def eval_metric(self, batch):
 
         label_array = []
         preds_array = []
@@ -138,3 +138,4 @@ class ViTModel():
 
         if (len(label_array) == len(preds_array)):
             print(f1_score(label_array, preds_array, average="macro"))
+            print(accuracy_score(label_array, preds_array))

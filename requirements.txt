@@ -15,3 +15,5 @@ shap==0.39.0
 x-transformers==0.12.1
 lime==0.2.0.1
 scikit-learn==0.24.2
+findpeaks==2.1.6
+opencv-python==4.5.2.54

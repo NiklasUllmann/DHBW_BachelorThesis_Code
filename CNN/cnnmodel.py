@@ -12,7 +12,7 @@ import numpy as np
 import shap
 from lime import lime_image
 from torchvision.transforms import transforms
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, accuracy_score
 
 
 
@@ -158,7 +158,7 @@ class CNNModel():
 
         return transf    
 
-    def f1_score(self, batch):
+    def eval_metric(self, batch):
 
         label_array = []
         preds_array = []
@@ -175,3 +175,4 @@ class CNNModel():
 
         if (len(label_array) == len(preds_array)):
             print(f1_score(label_array, preds_array, average="macro"))
+            print(accuracy_score(label_array, preds_array))
