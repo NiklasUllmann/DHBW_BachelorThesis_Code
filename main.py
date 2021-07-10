@@ -24,35 +24,41 @@ from findpeaks import findpeaks
 # Standard imports
 import cv2
 
+import numpy as np
+import matplotlib.pyplot as plt
+import random
+
+from skimage import measure
 
 
 def main():
     """ Main program """
 
-    # empty cache and load train, val test
+    # empty cache and seeding
     torch.cuda.empty_cache()
+    random.seed(42)
+    np.random.seed(42)
     torch.manual_seed(42)
-    train, val, test = load_data(batch_size=16)
+    torch.cuda.manual_seed_all(42)
 
-    torch.cuda.empty_cache()
+
+    # load train val test set
+    train, val, test = load_data(batch_size=16)
 
 
     # Load current models
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    # cnnModel.f1_score(test)
-    # vitModel.f1_score(test)
-
+    cnnModel.eval_metric(test)
+    vitModel.eval_metric(test)
+    """
     x, x_mir, y, y_mir = load_image_and_mirror(
         "./data/val/n02102040/ILSVRC2012_val_00014280.JPEG")
     preds, attn = vitModel.predict_and_attents(x)
     a_map = generate_attention_map(attn, patches_per_row=20, patch_size=16)
 
-    import numpy as np
-    import matplotlib.pyplot as plt
-
-    from skimage import measure
+    
 
     # Find contours at a constant value of 0.8
     contours = measure.find_contours(a_map, 0.5)
@@ -69,10 +75,7 @@ def main():
     ax.set_yticks([])
     plt.show()
 
-
-
-
-    """
+    
     path = []
     with open('./utils/constants.json') as json_file:
         data = json.load(json_file)

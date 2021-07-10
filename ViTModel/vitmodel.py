@@ -137,5 +137,5 @@ class ViTModel():
                 preds_array, output.argmax(dim=1).detach().cpu().numpy())
 
         if (len(label_array) == len(preds_array)):
-            print(f1_score(label_array, preds_array, average="macro"))
-            print(accuracy_score(label_array, preds_array))
+            print("ViT F1 Score: "+str(f1_score(label_array, preds_array, average="macro")))
+            print("ViT Accuracy: "+str(accuracy_score(label_array, preds_array)))
