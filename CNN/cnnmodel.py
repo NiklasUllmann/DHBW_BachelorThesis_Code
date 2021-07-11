@@ -15,8 +15,6 @@ from torchvision.transforms import transforms
 from sklearn.metrics import f1_score, accuracy_score
 
 
-
-
 class CNNModel():
     def __init__(self, load=False, path=None):
 
@@ -128,35 +126,37 @@ class CNNModel():
     def lime_and_explain(self, pil_img):
 
         explainer = lime_image.LimeImageExplainer()
-        explanation = explainer.explain_instance(np.array(pil_img), 
-                                         self.batch_predict, # classification function
-                                         top_labels=1, 
-                                         hide_color=1, 
-                                         num_samples=1000,
-                                         num_features=100)
-        
-        temp, mask = explanation.get_image_and_mask(explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
+        explanation = explainer.explain_instance(np.array(pil_img),
+                                                 self.batch_predict,  # classification function
+                                                 top_labels=1,
+                                                 hide_color=1,
+                                                 num_samples=1000,
+                                                 num_features=100)
+
+        temp, mask = explanation.get_image_and_mask(
+            explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
 
         return temp, mask
-    
+
     def batch_predict(self, imgs):
         self.model.eval()
         preprocess_transform = self.get_preprocess_transform()
 
-        batch = torch.stack(tuple(preprocess_transform(i) for i in imgs), dim=0)
+        batch = torch.stack(tuple(preprocess_transform(i)
+                            for i in imgs), dim=0)
 
         batch = batch.to(self.device)
-    
+
         logits = self.model(batch)
         probs = F.softmax(logits, dim=1)
         return probs.detach().cpu().numpy()
-    
+
     def get_preprocess_transform(self):
         transf = transforms.Compose([
-        transforms.ToTensor(),
-        ])    
+            transforms.ToTensor(),
+        ])
 
-        return transf    
+        return transf
 
     def eval_metric(self, batch):
 
@@ -170,9 +170,14 @@ class CNNModel():
             output = self.model(data)
 
             label_array = np.append(label_array, label.detach().cpu().numpy())
+
             preds_array = np.append(
                 preds_array, output.argmax(dim=1).detach().cpu().numpy())
+            print("CNN F1 Score: " +
+                  str(f1_score(label_array, preds_array, average="macro")))
+            print("CNN Accuracy: "+str(accuracy_score(label_array, preds_array)))
 
         if (len(label_array) == len(preds_array)):
-            print("CNN F1 Score: "+str(f1_score(label_array, preds_array, average="macro")))
+            print("CNN F1 Score: " +
+                  str(f1_score(label_array, preds_array, average="macro")))
             print("CNN Accuracy: "+str(accuracy_score(label_array, preds_array)))
