@@ -18,6 +18,7 @@ ANNOTATION_PATH = "./data/noisy_imagenette_extended.csv"
 IMG_PATH = "./data"
 TRANSFORMER = transforms.Compose(
     [
+        #transforms.FiveCrop(size=(320, 320)),
         transforms.Resize((320, 320)),
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
