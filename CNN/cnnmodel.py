@@ -173,9 +173,7 @@ class CNNModel():
 
             preds_array = np.append(
                 preds_array, output.argmax(dim=1).detach().cpu().numpy())
-            print("CNN F1 Score: " +
-                  str(f1_score(label_array, preds_array, average="macro")))
-            print("CNN Accuracy: "+str(accuracy_score(label_array, preds_array)))
+
 
         if (len(label_array) == len(preds_array)):
             print("CNN F1 Score: " +

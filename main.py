@@ -45,23 +45,18 @@ def main():
     torch.cuda.manual_seed_all(42)
 
     # load train val test set
-    train, val, test = load_data(batch_size=64)
+    train, val, test = load_data(batch_size=4)
 
-    cnnModel = CNNModel()
-    torch.cuda.empty_cache()
-    metrics = cnnModel.train_and_val(train, val, 50)
+ 
 
-    plot_metrics(metrics, "CNN", True)
-    cnnModel.save_model(path="./savedModels/cnn_newArch_2.pt")
-
-    """
+    
     # Load current models
-    cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch.pt")
+    cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch_2.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
     #cnnModel.eval_metric(test)
-    #vitModel.eval_metric(test)
-
+    vitModel.eval_metric(test)
+    """
     sliding_window_method(
         vitModel, "./data/val/n03000684/ILSVRC2012_val_00029211.JPEG")
 
