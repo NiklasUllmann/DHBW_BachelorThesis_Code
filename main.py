@@ -54,8 +54,13 @@ def main():
     # cnnModel.eval_metric(test)
     # vitModel.eval_metric(test)
 
-    path = []
+    x, y = load_single_image(
+        "./data/val/n03425413/ILSVRC2012_val_00004452.JPEG")
+    temp, mask = cnnModel.lime_and_explain(y)
+    vis_and_save(mask, "./data/val/n03425413/ILSVRC2012_val_00004452.JPEG")
 
+    path = []
+    """
     with open('./utils/constants.json') as json_file:
         data = json.load(json_file)
         for p in data["img"]:
@@ -64,7 +69,7 @@ def main():
 
     print("ViT Consitency: " + str(vit_consitency(vitModel, path)))
     print("CNN Consitency: " + str(cnn_consitency(cnnModel, path)))
-
+    """
     return 0
 
 
