@@ -15,7 +15,7 @@ def generate_attention_map(att_tensor, patches_per_row, patch_size):
     attn = torch.mean(attn, dim=[0, 1])
     attn = torch.sum(attn, dim=0)
     attn = attn.detach().cpu().numpy()
-    attn = attn[:-1].copy()
+    attn = attn[1:].copy()
     attn = np.interp(attn, (attn.min(), attn.max()), (0, +1))
 
     b = np.reshape(attn, (patches_per_row, patches_per_row))
