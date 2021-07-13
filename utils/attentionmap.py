@@ -2,6 +2,7 @@ import torch
 import numpy as np
 from PIL import Image
 import uuid
+from matplotlib import pyplot as plt
 
 
 def create_uuid():
@@ -14,7 +15,7 @@ def generate_attention_map(att_tensor, patches_per_row, patch_size):
     attn = torch.mean(attn, dim=[0, 1])
     attn = torch.sum(attn, dim=0)
     attn = attn.detach().cpu().numpy()
-    attn = attn[:-1].copy()
+    attn = attn[1:].copy()
     attn = np.interp(attn, (attn.min(), attn.max()), (0, +1))
 
     b = np.reshape(attn, (patches_per_row, patches_per_row))
@@ -41,3 +42,38 @@ def visualise_attention(att_tensor, patch_size, patches_per_row, img_size, orig_
     out.save("./output/atm/"+create_uuid()+".jpg")
 
     return 0
+
+
+def sliding_window_method(a_map):
+
+    windows_size = 10
+    avg_max = 0
+
+    bit_mask = np.zeros((320, 320), dtype=int)
+
+    i_max = 0
+    i_end_max = 0
+    j_max = 0
+    j_end_max = 0
+
+    for a in range(50):
+        i_max = 0
+        i_end_max = 0
+        j_max = 0
+        j_end_max = 0
+        avg_max = 0
+        for i in range(0, a_map.shape[0] - windows_size + 1):
+            for j in range(0, a_map.shape[1]-windows_size+1):
+                window = a_map[i: i + windows_size, j: j + windows_size]
+
+                if (np.mean(window) >= avg_max):
+                    i_max = i
+                    i_end_max = i+windows_size
+                    j_max = j
+                    j_end_max = j + windows_size
+                    avg_max = np.mean(window)
+
+        bit_mask[i_max:i_end_max, j_max:j_end_max] = 1
+        a_map[i_max:i_end_max, j_max:j_end_max] = 0
+
+    return bit_mask
