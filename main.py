@@ -63,7 +63,7 @@ def main():
             preds, attns = vitModel.predict_and_attents(x)
             visualise_attention(attns, 16, 20, 320, p["path"])
 
-    """
+    
     print("ViT Consitency: " + str(vit_consitency(vitModel, path)))
     print("CNN Consitency: " + str(cnn_consitency(cnnModel, path)))
     """
