@@ -45,22 +45,15 @@ def main():
     torch.cuda.manual_seed_all(42)
 
     # load train val test set
-    train, val, test = load_data(batch_size=4)
+    train, val, test = load_data(batch_size=16)
 
- 
-
-    
     # Load current models
-    cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch_2.pt")
+    cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch_4.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    #cnnModel.eval_metric(test)
-    vitModel.eval_metric(test)
+    cnnModel.eval_metric(test)
+    #vitModel.eval_metric(test)
     """
-    sliding_window_method(
-        vitModel, "./data/val/n03000684/ILSVRC2012_val_00029211.JPEG")
-
-    
     path = []
     with open('./utils/constants.json') as json_file:
         data = json.load(json_file)
