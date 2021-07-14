@@ -3,6 +3,8 @@ import numpy as np
 from PIL import Image
 import uuid
 from matplotlib import pyplot as plt
+import matplotlib.patches as mpatches
+
 
 
 def create_uuid():
@@ -39,14 +41,25 @@ def visualise_attention(att_tensor, patch_size, patches_per_row, img_size, orig_
 
     out = Image.blend(rgbimg, im2, 0.2)
 
-    out.save("./output/atm/"+create_uuid()+".jpg")
+    out.save("./output/atm/" + create_uuid() + ".jpg")
+    """
+    plt.subplot(1, 2, 1)
+    plt.imshow(b, cmap='gray')
+    plt.colorbar(fraction=0.046, pad=0.04)
+    plt.axis("off")
 
+    plt.subplot(1, 2, 2)
+    plt.imshow(out)
+    plt.axis("off")
+
+    plt.savefig("./output/atm/" + create_uuid() + ".jpg")
+    """
     return 0
 
 
 def sliding_window_method(a_map):
 
-    windows_size = 10
+    windows_size = 25
     avg_max = 0
 
     bit_mask = np.zeros((320, 320), dtype=int)
@@ -56,7 +69,7 @@ def sliding_window_method(a_map):
     j_max = 0
     j_end_max = 0
 
-    for a in range(50):
+    for a in range(25):
         i_max = 0
         i_end_max = 0
         j_max = 0

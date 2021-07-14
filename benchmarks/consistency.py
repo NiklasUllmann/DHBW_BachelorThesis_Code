@@ -27,7 +27,8 @@ def vit_consitency(model, list_of_paths):
         preds_mir, attn_mir = model.predict_and_attents(x_mir)
 
         bit_mask = sliding_window_method(generate_attention_map(attn, 20, 16))
-        bit_mask_mir = np.fliplr(sliding_window_method(generate_attention_map(attn_mir, 20, 16)))
+        bit_mask_mir = np.fliplr(sliding_window_method(
+            generate_attention_map(attn_mir, 20, 16)))
 
         avgs.append(compare_bitmasks(bit_mask, bit_mask_mir))
 
@@ -36,14 +37,15 @@ def vit_consitency(model, list_of_paths):
 
 def compare_bitmasks(mask, mask_mir):
 
-    h, w = mask.shape
-    ones = 0
+    whole_array = np.logical_or(mask, mask_mir)
+    whole = count_ones(whole_array)
 
-    for x in range(0, h):
-        for y in range(0, w):
-            ones += XNOR(mask[x, y], mask_mir[x, y])
-    return ones / (h*w)
+    same_array = np.logical_and(mask, mask_mir)
+    same = count_ones(same_array)
+    print(same/whole)
+
+    return same / whole
 
 
-
-
+def count_ones(a):
+    return sum(np.count_nonzero(x == 1) for x in a)
