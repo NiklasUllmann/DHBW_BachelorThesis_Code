@@ -1,6 +1,6 @@
 import torch
 from utils.dataset import ImagenetteDataset, just_load_resize_pil, load_data, load_single_image, load_image_and_mirror
-from utils.attentionmap import visualise_attention, generate_attention_map
+from utils.attentionmap import visualise_attention, generate_attention_map, sliding_window_method
 from utils.lime_vis import vis_and_save
 from utils.plotting_utils import imshow, plot_aumentation, plot_class_images, plot_confusion_matrix, plot_data_preprocessing, plot_metrics, show_distribution, plot_patches
 from CNN.cnnmodel import CNNModel
@@ -58,6 +58,11 @@ def main():
     with open('./utils/constants.json') as json_file:
         data = json.load(json_file)
         for p in data["img"]:
+            path.append(p["path"])
+
+            #x, y = load_single_image( p["path"])
+            #temp, mask = cnnModel.lime_and_explain(y)
+            #vis_and_save(mask, p["path"])
 
             path.append(p["path"])
             """

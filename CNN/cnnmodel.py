@@ -105,33 +105,15 @@ class CNNModel():
     def save_model(self, path):
         torch.save(self.model, path)
 
-    def predict_and_explain(self, val):
-        batch = next(iter(val))
-        images, _ = batch
-
-        images = images.to(self.device)
-        background = torch.full((1, 3, 320, 320), 255,
-                                device=self.device, dtype=torch.float32)
-        test_images = images[0:4]
-
-        e = shap.DeepExplainer(self.model, background)
-        shap_values = e.shap_values(test_images)
-        shap_numpy = [np.swapaxes(np.swapaxes(s, 1, -1), 1, 2)
-                      for s in shap_values]
-        test_numpy = np.swapaxes(np.swapaxes(
-            test_images.detach().cpu().numpy(), 1, -1), 1, 2)
-
-        shap.image_plot(shap_numpy, -test_numpy, show=True)
-
     def lime_and_explain(self, pil_img):
 
-        explainer = lime_image.LimeImageExplainer()
+        explainer = lime_image.LimeImageExplainer(random_state=42)
         explanation = explainer.explain_instance(np.array(pil_img),
                                                  self.batch_predict,  # classification function
                                                  top_labels=1,
                                                  hide_color=1,
                                                  num_samples=1000,
-                                                 num_features=100)
+                                                 num_features=1000)
 
         temp, mask = explanation.get_image_and_mask(
             explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
@@ -173,7 +155,6 @@ class CNNModel():
 
             preds_array = np.append(
                 preds_array, output.argmax(dim=1).detach().cpu().numpy())
-
 
         if (len(label_array) == len(preds_array)):
             print("CNN F1 Score: " +
