@@ -48,12 +48,12 @@ def main():
     train, val, test = load_data(batch_size=16)
 
     # Load current models
-    cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch_4.pt")
-    vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
+    cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch_6.pt")
+    #vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    # cnnModel.eval_metric(test)
+    cnnModel.eval_metric(test)
     # vitModel.eval_metric(test)
-
+    """
     path = []
     with open('./utils/constants.json') as json_file:
         data = json.load(json_file)
@@ -65,15 +65,15 @@ def main():
             #vis_and_save(mask, p["path"])
 
             path.append(p["path"])
-            """
+            
             x, y = load_single_image(p["path"])
             preds, attns = vitModel.predict_and_attents(x)
             visualise_attention(attns, 16, 20, 320, p["path"])
-            """
+            
 
     print("ViT Consitency: " + str(vit_consitency(vitModel, path)))
     #print("CNN Consitency: " + str(cnn_consitency(cnnModel, path)))
-
+    """
     return 0
 
 
