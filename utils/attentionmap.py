@@ -56,7 +56,7 @@ def sliding_window_method(a_map):
     j_max = 0
     j_end_max = 0
 
-    for a in range(50):
+    for a in range(25):
         i_max = 0
         i_end_max = 0
         j_max = 0
