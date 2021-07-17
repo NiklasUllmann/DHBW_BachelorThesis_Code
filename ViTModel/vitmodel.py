@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 from x_transformers import Encoder
 from sklearn.metrics import f1_score, accuracy_score
+import torch.nn.functional as F
 
 
 
@@ -119,7 +120,9 @@ class ViTModel():
         preds, attns = self.model(img)
         self.model = self.model.eject()
 
-        return preds, attns
+        preds = F.softmax(preds, dim=1)
+
+        return preds.detach().cpu().numpy(), attns
 
     def eval_metric(self, batch):
 

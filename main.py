@@ -60,15 +60,16 @@ def main():
         for p in data["img"]:
             path.append(p["path"])
 
-            #x, y = load_single_image( p["path"])
-            #temp, mask = cnnModel.lime_and_explain(y)
+            x, y = load_single_image(p["path"])
+            #probs = cnnModel.predict(x)
+            #temp, mask = cnnModel.lime_and_explain(y, p["class"])
             #vis_and_save(mask, p["path"])
 
             #x, y = load_single_image(p["path"])
-            #preds, attns = vitModel.predict_and_attents(x)
+            preds, attns = vitModel.predict_and_attents(x)
             #visualise_attention(attns, 16, 20, 320, p["path"])
 
-    print("ViT Consitency: " + str(vit_consitency(vitModel, path)))
+    #print("ViT Consitency: " + str(vit_consitency(vitModel, path)))
     #print("CNN Consitency: " + str(cnn_consitency(cnnModel, path)))
 
     return 0

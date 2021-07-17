@@ -105,12 +105,13 @@ class CNNModel():
     def save_model(self, path):
         torch.save(self.model, path)
 
-    def lime_and_explain(self, pil_img):
+    def lime_and_explain(self, pil_img, class_num):
 
         explainer = lime_image.LimeImageExplainer(random_state=42)
         explanation = explainer.explain_instance(np.array(pil_img),
-                                                 self.batch_predict,  # classification function
-                                                 top_labels=1,
+                                                self.batch_predict, 
+                                                labels=[class_num],
+                                                 #top_labels=1,
                                                  hide_color=1,
                                                  num_samples=1000,
                                                  num_features=1000)
@@ -160,3 +161,10 @@ class CNNModel():
             print("CNN F1 Score: " +
                   str(f1_score(label_array, preds_array, average="macro")))
             print("CNN Accuracy: "+str(accuracy_score(label_array, preds_array)))
+
+    def predict(self, img):
+        batch = img.to(self.device)
+
+        logits = self.model(batch)
+        probs = F.softmax(logits, dim=1)
+        return probs.detach().cpu().numpy()
