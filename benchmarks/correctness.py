@@ -30,7 +30,7 @@ def cnn_correctness(model, array):
 
             low_img, pil = load_single_image(low_path)
             masked_img = torch.unsqueeze(
-                trans(cnn_mask_image(model, high_path, low_path)), 0)
+                trans(cnn_mask_image(model, high_path, low_path, abc[x]["class"])), 0)
 
             classes = np.append(classes, abc[x]["class"])
             low_classes = np.append(
@@ -81,10 +81,10 @@ def vit_corecctness(model, array):
     return 0
 
 
-def cnn_mask_image(model, high, low):
+def cnn_mask_image(model, high, low, class_num):
 
     x_high, y_high = load_single_image(high)
-    temp, mask = model.lime_and_explain(y_high)
+    temp, mask = model.lime_and_explain(y_high, class_num)
     mask = np.where(mask == 1, 255, mask)
 
     im2 = Image.composite(just_load_resize_pil(high), just_load_resize_pil(

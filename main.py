@@ -73,7 +73,7 @@ def main():
 
             x, y = load_single_image(p["path"])
             #probs = cnnModel.predict(x)
-            temp, mask = cnnModel.lime_and_explain(y)
+            temp, mask = cnnModel.lime_and_explain(y, p["class"])
             vis_and_save(mask, p["path"])
 
             #x, y = load_single_image(p["path"])

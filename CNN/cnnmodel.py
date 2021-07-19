@@ -13,6 +13,8 @@ import shap
 from lime import lime_image
 from torchvision.transforms import transforms
 from sklearn.metrics import f1_score, accuracy_score
+from skimage.segmentation import mark_boundaries
+
 
 
 class CNNModel():
@@ -105,18 +107,18 @@ class CNNModel():
     def save_model(self, path):
         torch.save(self.model, path)
 
-    def lime_and_explain(self, pil_img):
+    def lime_and_explain(self, pil_img, class_num):
 
         explainer = lime_image.LimeImageExplainer(random_state=42)
         explanation = explainer.explain_instance(np.array(pil_img),
                                                 self.batch_predict, 
-                                                 top_labels=1,
+                                                 top_labels=10,
                                                  hide_color=1,
                                                  num_samples=1000,
-                                                 num_features=1000)
+                                                 num_features=100000)
 
         temp, mask = explanation.get_image_and_mask(
-            explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=True)
+            class_num, positive_only=True, num_features=5, hide_rest=True)
 
         return temp, mask
 

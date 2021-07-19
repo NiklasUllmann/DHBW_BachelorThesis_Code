@@ -28,7 +28,7 @@ def cnn_confidence(model, array):
             low_path = "./data/"+abc[ix]["path"]
 
             masked_img = torch.unsqueeze(
-                trans(cnn_mask_image(model, high_path, low_path)), 0)
+                trans(cnn_mask_image(model, high_path, low_path, abc[x]["class"])), 0)
             low_classes = np.append(low_classes, abc[ix]["probab"])
             masked_classes = np.append(masked_classes, model.predict(
                 masked_img)[0][abc[ix]["class"]])
@@ -68,10 +68,10 @@ def vit_confidence(model, array):
     return avg
 
 
-def cnn_mask_image(model, high, low):
+def cnn_mask_image(model, high, low, class_num):
 
     x_high, y_high = load_single_image(high)
-    temp, mask = model.lime_and_explain(y_high)
+    temp, mask = model.lime_and_explain(y_high, class_num)
     mask = np.where(mask == 1, 255, mask)
 
     im2 = Image.composite(just_load_resize_pil(high), just_load_resize_pil(
