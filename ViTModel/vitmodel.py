@@ -142,3 +142,10 @@ class ViTModel():
         if (len(label_array) == len(preds_array)):
             print("ViT F1 Score: "+str(f1_score(label_array, preds_array, average="macro")))
             print("ViT Accuracy: "+str(accuracy_score(label_array, preds_array)))
+
+    def predict(self, img):
+        batch = img.to(self.device)
+
+        logits = self.model(batch)
+        probs = F.softmax(logits, dim=1)
+        return probs.detach().cpu().numpy()

@@ -59,7 +59,7 @@ def visualise_attention(att_tensor, patch_size, patches_per_row, img_size, orig_
 
 def sliding_window_method(a_map):
 
-    windows_size = 25
+    windows_size = 40
     avg_max = 0
 
     bit_mask = np.zeros((320, 320), dtype=int)
@@ -69,7 +69,7 @@ def sliding_window_method(a_map):
     j_max = 0
     j_end_max = 0
 
-    for a in range(25):
+    for a in range(15):
         i_max = 0
         i_end_max = 0
         j_max = 0

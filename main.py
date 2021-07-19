@@ -33,27 +33,38 @@ from skimage.segmentation import felzenszwalb, slic, quickshift, watershed
 from skimage.filters import sobel
 from skimage.segmentation import mark_boundaries
 
+from utils.masking_data import create_json
+from benchmarks.correctness import cnn_correctness, vit_corecctness
+from benchmarks.confidence import cnn_confidence, vit_confidence
+
 
 def main():
     """ Main program """
 
     # empty cache and seeding
     torch.cuda.empty_cache()
-    random.seed(42)
-    np.random.seed(42)
+    #random.seed(42)
+    #np.random.seed(42)
     torch.manual_seed(42)
     torch.cuda.manual_seed_all(42)
 
     # load train val test set
-    train, val, test = load_data(batch_size=16)
+    #train, val, test = load_data(batch_size=28)
 
     # Load current models
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch_6.pt")
-    #vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
+    vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    cnnModel.eval_metric(test)
+    #array = create_json(4)
+    #cnn_correctness(cnnModel, array)
+    #vit_corecctness(vitModel, array)
+
+    #cnn_confidence(cnnModel, array)
+    #vit_confidence(vitModel, array)
+
+    # cnnModel.eval_metric(test)
     # vitModel.eval_metric(test)
-    """
+
     path = []
     with open('./utils/constants.json') as json_file:
         data = json.load(json_file)
@@ -62,16 +73,16 @@ def main():
 
             x, y = load_single_image(p["path"])
             #probs = cnnModel.predict(x)
-            #temp, mask = cnnModel.lime_and_explain(y, p["class"])
-            #vis_and_save(mask, p["path"])
+            temp, mask = cnnModel.lime_and_explain(y)
+            vis_and_save(mask, p["path"])
 
             #x, y = load_single_image(p["path"])
-            preds, attns = vitModel.predict_and_attents(x)
+            #preds, attns = vitModel.predict_and_attents(x)
             #visualise_attention(attns, 16, 20, 320, p["path"])
 
     #print("ViT Consitency: " + str(vit_consitency(vitModel, path)))
     #print("CNN Consitency: " + str(cnn_consitency(cnnModel, path)))
-    """
+
     return 0
 
 
@@ -79,9 +90,9 @@ def train_and_eval_models(train, test, val):
 
     # Train and save CNN Model
     cnnModel = CNNModel()
-    cnn_metrics = cnnModel.train_and_val(train, val, 50)
-    cnnModel.save_model("./savedModels/cnn.pt")
-
+    cnn_metrics = cnnModel.train_and_val(train, val, 5)
+    cnnModel.save_model("./savedModels/cnn_newArch_6.pt")
+    """
     # Train and save ViT Model
     vitModel = ViTModel()
     vit_metrics = vitModel.train(train, val, 16)
@@ -96,6 +107,7 @@ def train_and_eval_models(train, test, val):
 
     plot_confusion_matrix(cnn_matrix, "CNN", True)
     plot_confusion_matrix(vit_matrix, "ViT", True)
+    """
 
 
 if __name__ == "__main__":

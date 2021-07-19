@@ -105,19 +105,18 @@ class CNNModel():
     def save_model(self, path):
         torch.save(self.model, path)
 
-    def lime_and_explain(self, pil_img, class_num):
+    def lime_and_explain(self, pil_img):
 
         explainer = lime_image.LimeImageExplainer(random_state=42)
         explanation = explainer.explain_instance(np.array(pil_img),
                                                 self.batch_predict, 
-                                                labels=[class_num],
-                                                 #top_labels=1,
+                                                 top_labels=1,
                                                  hide_color=1,
                                                  num_samples=1000,
                                                  num_features=1000)
 
         temp, mask = explanation.get_image_and_mask(
-            explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
+            explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=True)
 
         return temp, mask
 
