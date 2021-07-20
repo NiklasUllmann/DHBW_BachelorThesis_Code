@@ -5,9 +5,7 @@ import numpy as np
 
 
 def cnn_consitency(model, list_of_paths):
-
     avgs = []
-
     for i in list_of_paths:
         for key, value in i.items():
             x, x_mir, y, y_mir = load_image_and_mirror("./data/"+value["path"])
