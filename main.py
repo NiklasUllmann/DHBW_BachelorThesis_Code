@@ -101,19 +101,29 @@ def train_and_eval_models(train, test, val):
 
 
 def calc_benchmarks(test, num_cases, cnn, vit):
-    cnn.eval_metric(test)
-    vit.eval_metric(test)
 
     array = create_json(num_cases)
 
-    print("CNN Consitency: " + str(cnn_consitency(cnn, array)))
-    print("ViT Consitency: " + str(vit_consitency(vit, array)))
+    cnn_metr = np.empty(0)
+    vit_metr = np.empty(0)
 
-    print("CNN Consitency: " + str(cnn_correctness(cnn, array)))
-    print("ViT Consitency: " + str(vit_correctness(vit, array)))
+    cnn_metr = np.append(cnn_metr, cnn.eval_metric(test))
+    vit_metr = np.append(vit_metr, vit.eval_metric(test))
 
-    print("CNN Consitency: " + str(cnn_confidence(cnn, array)))
-    print("ViT Consitency: " + str(vit_confidence(vit, array)))
+    cnn_metr = np.append(cnn_metr, cnn_consitency(cnn, array))
+    vit_metr = np.append(vit_metr, vit_consitency(vit, array))
+
+    cnn_metr = np.append(cnn_metr, cnn_correctness(cnn, array))
+    vit_metr = np.append(vit_metr, vit_correctness(vit, array))
+
+    cnn_metr = np.append(cnn_metr, cnn_confidence(cnn, array))
+    vit_metr = np.append(vit_metr, vit_confidence(vit, array))
+
+    print("CNN:")
+    print(cnn_metr)
+
+    print("ViT:")
+    print(vit_metr)
 
 
 if __name__ == "__main__":

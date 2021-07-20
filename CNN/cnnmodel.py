@@ -160,9 +160,7 @@ class CNNModel():
                 preds_array, output.argmax(dim=1).detach().cpu().numpy())
 
         if (len(label_array) == len(preds_array)):
-            print("CNN F1 Score: " +
-                  str(f1_score(label_array, preds_array, average="macro")))
-            print("CNN Accuracy: "+str(accuracy_score(label_array, preds_array)))
+            return [f1_score(label_array, preds_array, average="macro"), accuracy_score(label_array, preds_array)]
 
     def predict(self, img):
         batch = img.to(self.device)
