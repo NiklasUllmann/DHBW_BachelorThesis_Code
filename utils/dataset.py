@@ -153,7 +153,7 @@ def pil_augmentation(path):
 
 def load_image_and_mirror(path):
     image = Image.open(path)
-
+    image = image.convert('RGB')
     # Create SingleTensor
     x = TF.resize(image, [320, 320])
     x = TF.to_tensor(x)

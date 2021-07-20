@@ -49,15 +49,15 @@ def main():
     torch.cuda.manual_seed_all(42)
 
     # load train val test set
-    train, val, test = load_data(batch_size=28)
+    train, val, test = load_data(batch_size=160)
 
     # Load current models
-    cnnModel = CNNModel(load=True, path="./savedModels/cnn_newArch_6.pt")
-    vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
+    cnnModel = CNNModel(
+        load=True, path="./savedModels/cnn_resnet.pt")
+    #vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    calc_benchmarks(test, num_cases=4, cnn=cnnModel, vit=vitModel)
+    #calc_benchmarks(test, num_cases=4, cnn=cnnModel, vit=vitModel)
 
-    """
     path = []
     with open('./utils/constants.json') as json_file:
         data = json.load(json_file)
@@ -72,7 +72,7 @@ def main():
             #x, y = load_single_image(p["path"])
             #preds, attns = vitModel.predict_and_attents(x)
             #visualise_attention(attns, 16, 20, 320, p["path"])
-    """
+
     return 0
 
 
@@ -108,16 +108,16 @@ def calc_benchmarks(test, num_cases, cnn, vit):
     vit_metr = np.empty(0)
 
     cnn_metr = np.append(cnn_metr, cnn.eval_metric(test))
-    vit_metr = np.append(vit_metr, vit.eval_metric(test))
+    #vit_metr = np.append(vit_metr, vit.eval_metric(test))
 
     cnn_metr = np.append(cnn_metr, cnn_consitency(cnn, array))
-    vit_metr = np.append(vit_metr, vit_consitency(vit, array))
+    #vit_metr = np.append(vit_metr, vit_consitency(vit, array))
 
     cnn_metr = np.append(cnn_metr, cnn_correctness(cnn, array))
-    vit_metr = np.append(vit_metr, vit_correctness(vit, array))
+    #vit_metr = np.append(vit_metr, vit_correctness(vit, array))
 
     cnn_metr = np.append(cnn_metr, cnn_confidence(cnn, array))
-    vit_metr = np.append(vit_metr, vit_confidence(vit, array))
+    #vit_metr = np.append(vit_metr, vit_confidence(vit, array))
 
     print("CNN:")
     print(cnn_metr)
