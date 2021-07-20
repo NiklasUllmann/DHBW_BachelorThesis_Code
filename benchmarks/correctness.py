@@ -38,14 +38,10 @@ def cnn_correctness(model, array):
             masked_classes = np.append(
                 masked_classes, np.argmax(model.predict(masked_img)[0]))
 
-    print("CNN Acc with low images: " +
-          str(accuracy_score(classes, low_classes)))
-    print("CNN Acc with masked images: " +
-          str(accuracy_score(classes, masked_classes)))
-    return 0
+    return accuracy_score(classes, low_classes), accuracy_score(classes, masked_classes)
 
 
-def vit_corecctness(model, array):
+def vit_correctness(model, array):
     trans = transforms.ToTensor()
     classes = np.empty(0)
     low_classes = np.empty(0)
@@ -74,11 +70,7 @@ def vit_corecctness(model, array):
             masked_classes = np.append(
                 masked_classes, np.argmax(model.predict(masked_img)[0]))
 
-    print("ViT Acc with low images: " +
-          str(accuracy_score(classes, low_classes)))
-    print("Vit Acc with masked images: " +
-          str(accuracy_score(classes, masked_classes)))
-    return 0
+    return accuracy_score(classes, low_classes), accuracy_score(classes, masked_classes)
 
 
 def cnn_mask_image(model, high, low, class_num):

@@ -13,7 +13,7 @@ import shap
 from lime import lime_image
 from torchvision.transforms import transforms
 from sklearn.metrics import f1_score, accuracy_score
-from skimage.segmentation import mark_boundaries
+from skimage.segmentation import mark_boundaries, felzenszwalb, slic
 
 
 
@@ -115,7 +115,8 @@ class CNNModel():
                                                  top_labels=10,
                                                  hide_color=1,
                                                  num_samples=1000,
-                                                 num_features=100000)
+                                                 num_features=100000,
+                                                 segmentation_fn=slic)
 
         temp, mask = explanation.get_image_and_mask(
             class_num, positive_only=True, num_features=5, hide_rest=True)

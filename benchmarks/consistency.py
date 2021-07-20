@@ -8,21 +8,22 @@ def cnn_consitency(model, list_of_paths):
 
     avgs = []
 
-    for p in list_of_paths:
-        x, x_mir, y, y_mir = load_image_and_mirror(p)
-        temp, mask = model.lime_and_explain(y)
-        temp_mir, mask_mir = model.lime_and_explain(y_mir)
+    for i in list_of_paths:
+        for key, value in i.items():
+            x, x_mir, y, y_mir = load_image_and_mirror("./data/"+value["path"])
+            temp, mask = model.lime_and_explain(y, value["class"])
+            temp_mir, mask_mir = model.lime_and_explain(y_mir, value["class"])
 
-        avgs.append(compare_bitmasks(mask, np.fliplr(mask_mir)))
+            avgs.append(compare_bitmasks(mask, np.fliplr(mask_mir)))
 
     return sum(avgs)/len(avgs)
 
 
 def vit_consitency(model, list_of_paths):
     avgs = []
-
-    for p in list_of_paths:
-        x, x_mir, y, y_mir = load_image_and_mirror(p)
+    for i in list_of_paths:
+        for key, value in i.items():
+            x, x_mir, y, y_mir = load_image_and_mirror("./data/"+value["path"])
         preds, attn = model.predict_and_attents(x)
         preds_mir, attn_mir = model.predict_and_attents(x_mir)
 
@@ -42,7 +43,6 @@ def compare_bitmasks(mask, mask_mir):
 
     same_array = np.logical_and(mask, mask_mir)
     same = count_ones(same_array)
-    print(same/whole)
 
     return same / whole
 
