@@ -49,3 +49,11 @@ torch.Size([256, 6, 77, 77])
     - https://github.com/fastai/imagenette
 - ViT:
     - https://github.com/lucidrains/vit-pytorch
+
+
+## Calcs:
+
+CNN:
+[ 0.90815573  0.9079373   0.51643357  0.87        0.57       -0.05342876]
+ViT:
+[ 0.86366198  0.86364767  0.42883693  0.27        0.14       -0.0929645 ]

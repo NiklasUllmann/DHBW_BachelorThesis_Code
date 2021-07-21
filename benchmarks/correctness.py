@@ -55,6 +55,7 @@ def vit_correctness(model, array):
     for i in array:
         abc = list(dict(
             sorted(i.items(), key=lambda item: item[1]["probab"], reverse=True)).values())
+
         for x in range(0, int(len(abc)/2)):
 
             high_path = "./data/"+abc[x]["path"]

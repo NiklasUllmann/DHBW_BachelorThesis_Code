@@ -1,0 +1,1022 @@
+{
+  "0": [
+    {
+      "path": "aug/flip/n01440764_6cb6198a3f.JPEG",
+      "class": 0,
+      "probab": 0.99998677
+    },
+    {
+      "path": "aug/flip/n01440764_c534dc3611.JPEG",
+      "class": 0,
+      "probab": 0.9999453
+    },
+    {
+      "path": "train/n01440764/n01440764_39.JPEG",
+      "class": 0,
+      "probab": 0.99994373
+    },
+    {
+      "path": "val/n01440764/n01440764_8600.JPEG",
+      "class": 0,
+      "probab": 0.99994314
+    },
+    {
+      "path": "aug/flip/n01440764_5248133a1f.JPEG",
+      "class": 0,
+      "probab": 0.9999398
+    },
+    {
+      "path": "aug/mirror/n01440764_410b010a31.JPEG",
+      "class": 0,
+      "probab": 0.9999392
+    },
+    {
+      "path": "aug/flip/n01440764_c66a2a6214.JPEG",
+      "class": 0,
+      "probab": 0.9999343
+    },
+    {
+      "path": "aug/mirror/n01440764_4436c53ba1.JPEG",
+      "class": 0,
+      "probab": 0.9999243
+    },
+    {
+      "path": "aug/mirror/n01440764_629bb2958b.JPEG",
+      "class": 0,
+      "probab": 0.99988985
+    },
+    {
+      "path": "train/n01440764/n01440764_105.JPEG",
+      "class": 0,
+      "probab": 0.99988246
+    },
+    {
+      "path": "aug/flip/n01440764_8827b1b1d4.JPEG",
+      "class": 0,
+      "probab": 0.33829463
+    },
+    {
+      "path": "aug/flip/n01440764_cf8520e8b0.JPEG",
+      "class": 0,
+      "probab": 0.14478585
+    },
+    {
+      "path": "aug/mirror/n01440764_657995c7d4.JPEG",
+      "class": 0,
+      "probab": 0.1335457
+    },
+    {
+      "path": "val/n01440764/n01440764_14530.JPEG",
+      "class": 0,
+      "probab": 0.1172103
+    },
+    {
+      "path": "aug/mirror/n01440764_cface76b38.JPEG",
+      "class": 0,
+      "probab": 0.07687279
+    },
+    {
+      "path": "train/n01440764/n01440764_1244.JPEG",
+      "class": 0,
+      "probab": 0.057694394
+    },
+    {
+      "path": "aug/mirror/n01440764_8beb327e61.JPEG",
+      "class": 0,
+      "probab": 0.042347405
+    },
+    {
+      "path": "train/n01440764/ILSVRC2012_val_00010306.JPEG",
+      "class": 0,
+      "probab": 0.0012752336
+    },
+    {
+      "path": "train/n01440764/n01440764_1537.JPEG",
+      "class": 0,
+      "probab": 0.00074818026
+    },
+    {
+      "path": "train/n01440764/n01440764_19938.JPEG",
+      "class": 0,
+      "probab": 0.00040552922
+    }
+  ],
+  "1": [
+    {
+      "path": "aug/flip/n02102040_bbbf94ee22.JPEG",
+      "class": 1,
+      "probab": 0.99991584
+    },
+    {
+      "path": "train/n02102040/n02102040_2377.JPEG",
+      "class": 1,
+      "probab": 0.99988985
+    },
+    {
+      "path": "aug/flip/n02102040_1716a2f781.JPEG",
+      "class": 1,
+      "probab": 0.999859
+    },
+    {
+      "path": "val/n02102040/n02102040_30.JPEG",
+      "class": 1,
+      "probab": 0.99985874
+    },
+    {
+      "path": "aug/mirror/n02102040_5662610d39.JPEG",
+      "class": 1,
+      "probab": 0.99984336
+    },
+    {
+      "path": "aug/mirror/n02102040_d9a38f48ca.JPEG",
+      "class": 1,
+      "probab": 0.999701
+    },
+    {
+      "path": "val/n02102040/n02102040_810.JPEG",
+      "class": 1,
+      "probab": 0.99959
+    },
+    {
+      "path": "aug/mirror/n02102040_dbd429dd70.JPEG",
+      "class": 1,
+      "probab": 0.99953854
+    },
+    {
+      "path": "aug/mirror/n02102040_077a6e73e4.JPEG",
+      "class": 1,
+      "probab": 0.9995074
+    },
+    {
+      "path": "aug/flip/n02102040_e8ad937dd3.JPEG",
+      "class": 1,
+      "probab": 0.9994659
+    },
+    {
+      "path": "aug/mirror/n02102040_cfa9d8d1ad.JPEG",
+      "class": 1,
+      "probab": 0.14556257
+    },
+    {
+      "path": "aug/flip/n02102040_0d9091564c.JPEG",
+      "class": 1,
+      "probab": 0.08739411
+    },
+    {
+      "path": "aug/mirror/n02102040_325290e5e3.JPEG",
+      "class": 1,
+      "probab": 0.06997345
+    },
+    {
+      "path": "aug/flip/n02102040_22ed241049.JPEG",
+      "class": 1,
+      "probab": 0.057914488
+    },
+    {
+      "path": "train/n02102040/n02102040_8283.JPEG",
+      "class": 1,
+      "probab": 0.030062811
+    },
+    {
+      "path": "val/n02102040/n02102040_1181.JPEG",
+      "class": 1,
+      "probab": 0.01309494
+    },
+    {
+      "path": "train/n02102040/n02102040_2785.JPEG",
+      "class": 1,
+      "probab": 0.010923191
+    },
+    {
+      "path": "val/n02102040/n02102040_7041.JPEG",
+      "class": 1,
+      "probab": 0.0054877247
+    },
+    {
+      "path": "train/n02102040/n02102040_2246.JPEG",
+      "class": 1,
+      "probab": 0.004263555
+    },
+    {
+      "path": "val/n02102040/n02102040_841.JPEG",
+      "class": 1,
+      "probab": 0.0012106708
+    }
+  ],
+  "2": [
+    {
+      "path": "aug/mirror/n02979186_8e054897eb.JPEG",
+      "class": 2,
+      "probab": 0.99998116
+    },
+    {
+      "path": "val/n02979186/n02979186_1200.JPEG",
+      "class": 2,
+      "probab": 0.9999218
+    },
+    {
+      "path": "aug/mirror/n02979186_5a07984525.JPEG",
+      "class": 2,
+      "probab": 0.99991906
+    },
+    {
+      "path": "aug/mirror/n02979186_19c361e279.JPEG",
+      "class": 2,
+      "probab": 0.9998348
+    },
+    {
+      "path": "aug/mirror/n02979186_6a1de03165.JPEG",
+      "class": 2,
+      "probab": 0.9997925
+    },
+    {
+      "path": "aug/flip/n02979186_9262ef9746.JPEG",
+      "class": 2,
+      "probab": 0.9997904
+    },
+    {
+      "path": "train/n02979186/n02979186_10097.JPEG",
+      "class": 2,
+      "probab": 0.99973506
+    },
+    {
+      "path": "train/n02979186/n02979186_22076.JPEG",
+      "class": 2,
+      "probab": 0.99968386
+    },
+    {
+      "path": "aug/mirror/n02979186_df9c317b70.JPEG",
+      "class": 2,
+      "probab": 0.9995652
+    },
+    {
+      "path": "aug/mirror/n02979186_e299eb1ac6.JPEG",
+      "class": 2,
+      "probab": 0.99950576
+    },
+    {
+      "path": "aug/mirror/n02979186_7f74f2b0c7.JPEG",
+      "class": 2,
+      "probab": 0.22103523
+    },
+    {
+      "path": "aug/mirror/n02979186_d2c5b7aa92.JPEG",
+      "class": 2,
+      "probab": 0.19920816
+    },
+    {
+      "path": "train/n02979186/n02979186_13209.JPEG",
+      "class": 2,
+      "probab": 0.16406433
+    },
+    {
+      "path": "aug/flip/n02979186_83c967435d.JPEG",
+      "class": 2,
+      "probab": 0.1572905
+    },
+    {
+      "path": "val/n02979186/n02979186_21640.JPEG",
+      "class": 2,
+      "probab": 0.097506434
+    },
+    {
+      "path": "train/n02979186/n02979186_1314.JPEG",
+      "class": 2,
+      "probab": 0.06935895
+    },
+    {
+      "path": "train/n02979186/n02979186_19444.JPEG",
+      "class": 2,
+      "probab": 0.06438527
+    },
+    {
+      "path": "aug/flip/n02979186_8a8d1b8ab9.JPEG",
+      "class": 2,
+      "probab": 0.03939153
+    },
+    {
+      "path": "val/n02979186/n02979186_11120.JPEG",
+      "class": 2,
+      "probab": 0.024137704
+    },
+    {
+      "path": "train/n02979186/n02979186_13094.JPEG",
+      "class": 2,
+      "probab": 0.014225038
+    }
+  ],
+  "3": [
+    {
+      "path": "aug/mirror/n03000684_b2918f9379.JPEG",
+      "class": 3,
+      "probab": 0.99995434
+    },
+    {
+      "path": "aug/flip/n03000684_8285324d23.JPEG",
+      "class": 3,
+      "probab": 0.9999379
+    },
+    {
+      "path": "aug/mirror/n03000684_c3f3f284b2.JPEG",
+      "class": 3,
+      "probab": 0.9996878
+    },
+    {
+      "path": "train/n03000684/n03000684_24493.JPEG",
+      "class": 3,
+      "probab": 0.9991252
+    },
+    {
+      "path": "aug/mirror/n03000684_5f914d19db.JPEG",
+      "class": 3,
+      "probab": 0.9989549
+    },
+    {
+      "path": "val/n03000684/n03000684_1490.JPEG",
+      "class": 3,
+      "probab": 0.99889576
+    },
+    {
+      "path": "aug/mirror/n03000684_acfbb5ece8.JPEG",
+      "class": 3,
+      "probab": 0.9987338
+    },
+    {
+      "path": "train/n03000684/n03000684_6183.JPEG",
+      "class": 3,
+      "probab": 0.99855477
+    },
+    {
+      "path": "val/n03000684/ILSVRC2012_val_00045940.JPEG",
+      "class": 3,
+      "probab": 0.99811053
+    },
+    {
+      "path": "aug/flip/n03000684_0c88baf370.JPEG",
+      "class": 3,
+      "probab": 0.99806315
+    },
+    {
+      "path": "aug/flip/n03000684_5e1fa28ebd.JPEG",
+      "class": 3,
+      "probab": 0.24591105
+    },
+    {
+      "path": "aug/mirror/n03000684_b929a87570.JPEG",
+      "class": 3,
+      "probab": 0.17643216
+    },
+    {
+      "path": "aug/flip/n03000684_90ce09aa9e.JPEG",
+      "class": 3,
+      "probab": 0.14498425
+    },
+    {
+      "path": "aug/mirror/n03000684_0c63e97684.JPEG",
+      "class": 3,
+      "probab": 0.08177238
+    },
+    {
+      "path": "train/n03000684/n03000684_4778.JPEG",
+      "class": 3,
+      "probab": 0.08016585
+    },
+    {
+      "path": "train/n03000684/n03000684_20117.JPEG",
+      "class": 3,
+      "probab": 0.07376765
+    },
+    {
+      "path": "aug/mirror/n03000684_f5d437850c.JPEG",
+      "class": 3,
+      "probab": 0.06572218
+    },
+    {
+      "path": "train/n03000684/n03000684_23717.JPEG",
+      "class": 3,
+      "probab": 0.047389165
+    },
+    {
+      "path": "train/n03000684/n03000684_7457.JPEG",
+      "class": 3,
+      "probab": 0.014923526
+    },
+    {
+      "path": "train/n03000684/ILSVRC2012_val_00037629.JPEG",
+      "class": 3,
+      "probab": 0.005782883
+    }
+  ],
+  "4": [
+    {
+      "path": "aug/mirror/n03028079_8baaa18948.JPEG",
+      "class": 4,
+      "probab": 0.9997763
+    },
+    {
+      "path": "aug/flip/n03028079_2d7fe6aa96.JPEG",
+      "class": 4,
+      "probab": 0.999681
+    },
+    {
+      "path": "aug/flip/n03028079_491cbb6b25.JPEG",
+      "class": 4,
+      "probab": 0.9995925
+    },
+    {
+      "path": "aug/mirror/n03028079_1d7b1e3020.JPEG",
+      "class": 4,
+      "probab": 0.9995819
+    },
+    {
+      "path": "train/n03028079/n03028079_699.JPEG",
+      "class": 4,
+      "probab": 0.9994618
+    },
+    {
+      "path": "aug/mirror/n03028079_c2ea77c684.JPEG",
+      "class": 4,
+      "probab": 0.99945396
+    },
+    {
+      "path": "aug/flip/n03028079_37aaab308c.JPEG",
+      "class": 4,
+      "probab": 0.9992663
+    },
+    {
+      "path": "aug/mirror/n03028079_6d048d588e.JPEG",
+      "class": 4,
+      "probab": 0.9990163
+    },
+    {
+      "path": "aug/mirror/n03028079_a8283dd255.JPEG",
+      "class": 4,
+      "probab": 0.9985455
+    },
+    {
+      "path": "aug/flip/n03028079_0f9ca6ec26.JPEG",
+      "class": 4,
+      "probab": 0.9983771
+    },
+    {
+      "path": "aug/mirror/n03028079_5d58f50e0e.JPEG",
+      "class": 4,
+      "probab": 0.40195432
+    },
+    {
+      "path": "train/n03028079/n03028079_3616.JPEG",
+      "class": 4,
+      "probab": 0.3936354
+    },
+    {
+      "path": "aug/mirror/n03028079_9117e07d05.JPEG",
+      "class": 4,
+      "probab": 0.38369134
+    },
+    {
+      "path": "train/n03028079/n03028079_577.JPEG",
+      "class": 4,
+      "probab": 0.26155627
+    },
+    {
+      "path": "aug/mirror/n03028079_c489adb056.JPEG",
+      "class": 4,
+      "probab": 0.19120136
+    },
+    {
+      "path": "val/n03028079/n03028079_25712.JPEG",
+      "class": 4,
+      "probab": 0.12863998
+    },
+    {
+      "path": "val/n03028079/n03028079_62551.JPEG",
+      "class": 4,
+      "probab": 0.009148945
+    },
+    {
+      "path": "train/n03028079/n03028079_9104.JPEG",
+      "class": 4,
+      "probab": 0.0057141758
+    },
+    {
+      "path": "train/n03028079/n03028079_3835.JPEG",
+      "class": 4,
+      "probab": 0.0018925096
+    },
+    {
+      "path": "train/n03028079/n03028079_11886.JPEG",
+      "class": 4,
+      "probab": 8.069691e-5
+    }
+  ],
+  "5": [
+    {
+      "path": "aug/flip/n03394916_8bda4b96e3.JPEG",
+      "class": 5,
+      "probab": 0.99987257
+    },
+    {
+      "path": "aug/flip/n03394916_9c00e68a11.JPEG",
+      "class": 5,
+      "probab": 0.9998672
+    },
+    {
+      "path": "val/n03394916/n03394916_55411.JPEG",
+      "class": 5,
+      "probab": 0.9998294
+    },
+    {
+      "path": "aug/flip/n03394916_301f668e62.JPEG",
+      "class": 5,
+      "probab": 0.9998223
+    },
+    {
+      "path": "val/n03394916/n03394916_25832.JPEG",
+      "class": 5,
+      "probab": 0.9998042
+    },
+    {
+      "path": "aug/mirror/n03394916_f8e7ca6772.JPEG",
+      "class": 5,
+      "probab": 0.99942756
+    },
+    {
+      "path": "aug/mirror/n03394916_79fee6a6b3.JPEG",
+      "class": 5,
+      "probab": 0.9993913
+    },
+    {
+      "path": "aug/flip/n03394916_65f92b87f7.JPEG",
+      "class": 5,
+      "probab": 0.99931085
+    },
+    {
+      "path": "val/n03394916/n03394916_32411.JPEG",
+      "class": 5,
+      "probab": 0.99922764
+    },
+    {
+      "path": "aug/mirror/n03394916_2eedf04fc3.JPEG",
+      "class": 5,
+      "probab": 0.99907637
+    },
+    {
+      "path": "train/n03394916/n03394916_12266.JPEG",
+      "class": 5,
+      "probab": 0.22516227
+    },
+    {
+      "path": "aug/mirror/n03394916_50a8b6eb05.JPEG",
+      "class": 5,
+      "probab": 0.20076011
+    },
+    {
+      "path": "train/n03394916/n03394916_9999.JPEG",
+      "class": 5,
+      "probab": 0.067984916
+    },
+    {
+      "path": "train/n03394916/n03394916_25364.JPEG",
+      "class": 5,
+      "probab": 0.056792382
+    },
+    {
+      "path": "aug/mirror/n03394916_31e160e9da.JPEG",
+      "class": 5,
+      "probab": 0.034284286
+    },
+    {
+      "path": "val/n03394916/n03394916_32661.JPEG",
+      "class": 5,
+      "probab": 0.018032094
+    },
+    {
+      "path": "val/n03394916/n03394916_57212.JPEG",
+      "class": 5,
+      "probab": 0.017900217
+    },
+    {
+      "path": "train/n03394916/n03394916_35954.JPEG",
+      "class": 5,
+      "probab": 0.013696248
+    },
+    {
+      "path": "val/n03394916/n03394916_40301.JPEG",
+      "class": 5,
+      "probab": 0.0059817126
+    },
+    {
+      "path": "val/n03394916/n03394916_46391.JPEG",
+      "class": 5,
+      "probab": 0.0033686194
+    }
+  ],
+  "6": [
+    {
+      "path": "aug/flip/n03417042_919d16b1be.JPEG",
+      "class": 6,
+      "probab": 0.99986064
+    },
+    {
+      "path": "aug/mirror/n03417042_3caf93302c.JPEG",
+      "class": 6,
+      "probab": 0.99981433
+    },
+    {
+      "path": "aug/mirror/n03417042_6ba48dbcb8.JPEG",
+      "class": 6,
+      "probab": 0.99978775
+    },
+    {
+      "path": "aug/mirror/n03417042_9ba0a051d4.JPEG",
+      "class": 6,
+      "probab": 0.99976975
+    },
+    {
+      "path": "val/n03417042/n03417042_4551.JPEG",
+      "class": 6,
+      "probab": 0.9996928
+    },
+    {
+      "path": "aug/flip/n03417042_f682879cd9.JPEG",
+      "class": 6,
+      "probab": 0.9995459
+    },
+    {
+      "path": "aug/flip/n03417042_9dad13a041.JPEG",
+      "class": 6,
+      "probab": 0.99949574
+    },
+    {
+      "path": "aug/flip/n03417042_25c92a5c4c.JPEG",
+      "class": 6,
+      "probab": 0.9994168
+    },
+    {
+      "path": "aug/flip/n03417042_d4ecba5f7e.JPEG",
+      "class": 6,
+      "probab": 0.9991843
+    },
+    {
+      "path": "train/n03417042/n03417042_29267.JPEG",
+      "class": 6,
+      "probab": 0.99913615
+    },
+    {
+      "path": "aug/flip/n03417042_f096ed6a2f.JPEG",
+      "class": 6,
+      "probab": 0.31017265
+    },
+    {
+      "path": "train/n03417042/n03417042_11928.JPEG",
+      "class": 6,
+      "probab": 0.2722063
+    },
+    {
+      "path": "aug/mirror/n03417042_00e0946f87.JPEG",
+      "class": 6,
+      "probab": 0.19407758
+    },
+    {
+      "path": "val/n03417042/n03417042_1282.JPEG",
+      "class": 6,
+      "probab": 0.19005111
+    },
+    {
+      "path": "val/n03417042/n03417042_14500.JPEG",
+      "class": 6,
+      "probab": 0.18260945
+    },
+    {
+      "path": "aug/flip/n03417042_1fc1b5c7b4.JPEG",
+      "class": 6,
+      "probab": 0.15749915
+    },
+    {
+      "path": "aug/mirror/n03417042_3bd93819b7.JPEG",
+      "class": 6,
+      "probab": 0.10443906
+    },
+    {
+      "path": "train/n03417042/n03417042_3735.JPEG",
+      "class": 6,
+      "probab": 0.030694682
+    },
+    {
+      "path": "val/n03417042/n03417042_6521.JPEG",
+      "class": 6,
+      "probab": 0.009610089
+    },
+    {
+      "path": "train/n03417042/n03417042_7013.JPEG",
+      "class": 6,
+      "probab": 0.0024724544
+    }
+  ],
+  "7": [
+    {
+      "path": "train/n03425413/n03425413_547.JPEG",
+      "class": 7,
+      "probab": 0.99982965
+    },
+    {
+      "path": "aug/flip/n03425413_6049bea6c2.JPEG",
+      "class": 7,
+      "probab": 0.9997881
+    },
+    {
+      "path": "aug/mirror/n03425413_d00b0bde33.JPEG",
+      "class": 7,
+      "probab": 0.99977607
+    },
+    {
+      "path": "val/n03425413/n03425413_7471.JPEG",
+      "class": 7,
+      "probab": 0.99948895
+    },
+    {
+      "path": "aug/mirror/n03425413_711876a494.JPEG",
+      "class": 7,
+      "probab": 0.9994173
+    },
+    {
+      "path": "aug/flip/n03425413_670e06918f.JPEG",
+      "class": 7,
+      "probab": 0.9990381
+    },
+    {
+      "path": "aug/mirror/n03425413_57b36b6f7c.JPEG",
+      "class": 7,
+      "probab": 0.9950488
+    },
+    {
+      "path": "aug/mirror/n03425413_4cd9fe9451.JPEG",
+      "class": 7,
+      "probab": 0.99479526
+    },
+    {
+      "path": "aug/flip/n03425413_ca0c86424d.JPEG",
+      "class": 7,
+      "probab": 0.9941186
+    },
+    {
+      "path": "aug/flip/n03425413_3c2621af6b.JPEG",
+      "class": 7,
+      "probab": 0.99360496
+    },
+    {
+      "path": "val/n03425413/n03425413_8670.JPEG",
+      "class": 7,
+      "probab": 0.16971351
+    },
+    {
+      "path": "train/n03425413/n03425413_15479.JPEG",
+      "class": 7,
+      "probab": 0.15684819
+    },
+    {
+      "path": "aug/flip/n03425413_83f3509ced.JPEG",
+      "class": 7,
+      "probab": 0.13656665
+    },
+    {
+      "path": "train/n03425413/n03425413_20747.JPEG",
+      "class": 7,
+      "probab": 0.12908554
+    },
+    {
+      "path": "aug/mirror/n03425413_078a92cf5f.JPEG",
+      "class": 7,
+      "probab": 0.10662121
+    },
+    {
+      "path": "train/n03425413/n03425413_15397.JPEG",
+      "class": 7,
+      "probab": 0.09832813
+    },
+    {
+      "path": "aug/flip/n03425413_37d24e1b6d.JPEG",
+      "class": 7,
+      "probab": 0.046361353
+    },
+    {
+      "path": "val/n03425413/ILSVRC2012_val_00020951.JPEG",
+      "class": 7,
+      "probab": 0.013448937
+    },
+    {
+      "path": "train/n03425413/n03425413_27325.JPEG",
+      "class": 7,
+      "probab": 0.009375005
+    },
+    {
+      "path": "train/n03425413/n03425413_13609.JPEG",
+      "class": 7,
+      "probab": 0.0015038442
+    }
+  ],
+  "8": [
+    {
+      "path": "aug/flip/n03445777_cd189d3045.JPEG",
+      "class": 8,
+      "probab": 0.99998343
+    },
+    {
+      "path": "aug/flip/n03445777_bc36a07768.JPEG",
+      "class": 8,
+      "probab": 0.9998392
+    },
+    {
+      "path": "aug/flip/n03445777_cba8ca202c.JPEG",
+      "class": 8,
+      "probab": 0.9997385
+    },
+    {
+      "path": "train/n03445777/n03445777_8448.JPEG",
+      "class": 8,
+      "probab": 0.99965084
+    },
+    {
+      "path": "aug/mirror/n03445777_164600f58d.JPEG",
+      "class": 8,
+      "probab": 0.99938333
+    },
+    {
+      "path": "aug/mirror/n03445777_327c8356b5.JPEG",
+      "class": 8,
+      "probab": 0.9993612
+    },
+    {
+      "path": "train/n03445777/n03445777_15388.JPEG",
+      "class": 8,
+      "probab": 0.99919766
+    },
+    {
+      "path": "aug/mirror/n03445777_bfeaea7ada.JPEG",
+      "class": 8,
+      "probab": 0.9991585
+    },
+    {
+      "path": "aug/flip/n03445777_c594b210db.JPEG",
+      "class": 8,
+      "probab": 0.9989318
+    },
+    {
+      "path": "val/n03445777/n03445777_5712.JPEG",
+      "class": 8,
+      "probab": 0.99883145
+    },
+    {
+      "path": "aug/flip/n03445777_ed9be36193.JPEG",
+      "class": 8,
+      "probab": 0.20398566
+    },
+    {
+      "path": "val/n03445777/n03445777_12882.JPEG",
+      "class": 8,
+      "probab": 0.17354976
+    },
+    {
+      "path": "aug/flip/n03445777_7571842cea.JPEG",
+      "class": 8,
+      "probab": 0.15657713
+    },
+    {
+      "path": "aug/flip/n03445777_ece79b47c5.JPEG",
+      "class": 8,
+      "probab": 0.081271335
+    },
+    {
+      "path": "train/n03445777/n03445777_1953.JPEG",
+      "class": 8,
+      "probab": 0.06946198
+    },
+    {
+      "path": "train/n03445777/n03445777_129.JPEG",
+      "class": 8,
+      "probab": 0.06122299
+    },
+    {
+      "path": "aug/mirror/n03445777_41ae26c82c.JPEG",
+      "class": 8,
+      "probab": 0.044598598
+    },
+    {
+      "path": "aug/mirror/n03445777_c120dcf55f.JPEG",
+      "class": 8,
+      "probab": 0.02736527
+    },
+    {
+      "path": "train/n03445777/n03445777_9187.JPEG",
+      "class": 8,
+      "probab": 0.027341835
+    },
+    {
+      "path": "train/n03445777/n03445777_5184.JPEG",
+      "class": 8,
+      "probab": 0.019682612
+    }
+  ],
+  "9": [
+    {
+      "path": "aug/mirror/n03888257_3953b07334.JPEG",
+      "class": 9,
+      "probab": 0.9999875
+    },
+    {
+      "path": "train/n03888257/ILSVRC2012_val_00015689.JPEG",
+      "class": 9,
+      "probab": 0.99996614
+    },
+    {
+      "path": "aug/mirror/n03888257_d46b27d8ac.JPEG",
+      "class": 9,
+      "probab": 0.9999641
+    },
+    {
+      "path": "aug/mirror/n03888257_4946ed372c.JPEG",
+      "class": 9,
+      "probab": 0.999964
+    },
+    {
+      "path": "aug/mirror/n03888257_fc605455e4.JPEG",
+      "class": 9,
+      "probab": 0.99996185
+    },
+    {
+      "path": "train/n03888257/n03888257_19648.JPEG",
+      "class": 9,
+      "probab": 0.99996126
+    },
+    {
+      "path": "val/n03888257/n03888257_32682.JPEG",
+      "class": 9,
+      "probab": 0.99996006
+    },
+    {
+      "path": "train/n03888257/n03888257_3093.JPEG",
+      "class": 9,
+      "probab": 0.99995565
+    },
+    {
+      "path": "aug/mirror/n03888257_668efb28bf.JPEG",
+      "class": 9,
+      "probab": 0.99995196
+    },
+    {
+      "path": "train/n03888257/ILSVRC2012_val_00039045.JPEG",
+      "class": 9,
+      "probab": 0.9999496
+    },
+    {
+      "path": "aug/flip/n03888257_cdbdee96d9.JPEG",
+      "class": 9,
+      "probab": 0.26365787
+    },
+    {
+      "path": "aug/mirror/n03888257_5f2b53cf3d.JPEG",
+      "class": 9,
+      "probab": 0.24603942
+    },
+    {
+      "path": "aug/flip/n03888257_5326bc781a.JPEG",
+      "class": 9,
+      "probab": 0.23887779
+    },
+    {
+      "path": "val/n03888257/n03888257_11282.JPEG",
+      "class": 9,
+      "probab": 0.20726435
+    },
+    {
+      "path": "val/n03888257/n03888257_22211.JPEG",
+      "class": 9,
+      "probab": 0.17812237
+    },
+    {
+      "path": "train/n03888257/n03888257_8199.JPEG",
+      "class": 9,
+      "probab": 0.10331072
+    },
+    {
+      "path": "train/n03888257/n03888257_10157.JPEG",
+      "class": 9,
+      "probab": 0.055312134
+    },
+    {
+      "path": "aug/flip/n03888257_1c3a3ec027.JPEG",
+      "class": 9,
+      "probab": 0.042269118
+    },
+    {
+      "path": "train/n03888257/n03888257_14504.JPEG",
+      "class": 9,
+      "probab": 0.03768398
+    },
+    {
+      "path": "train/n03888257/n03888257_67668.JPEG",
+      "class": 9,
+      "probab": 0.0006923107
+    }
+  ]
+}

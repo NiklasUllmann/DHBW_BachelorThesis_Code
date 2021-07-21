@@ -1,28 +1,42 @@
+import json
 import pandas as pd
 import uuid
 
 
-def create_json(amount_per_class) -> dict:
+def create_json(amount_per_class, load_from_file) -> dict:
 
     dict_all = []
-    df = pd.read_csv("./data/noisy_imagenette_extended.csv")
-    df = df.sample(frac=1).reset_index(drop=True)
-    df = df.sort_values(by="noisy_labels_0")
+    if(not load_from_file):
 
-    for i in range(0, 10):
-        res = df.loc[df['noisy_labels_0'] == get_label_for_int(i)]
-        res = res[:amount_per_class]
+        df = pd.read_csv("./data/noisy_imagenette_extended.csv")
+        df = df.sample(frac=1).reset_index(drop=True)
+        df = df.sort_values(by="noisy_labels_0")
 
-        intermed = {}
-        for index, row in res.iterrows():
-            d = {create_uuid(): {
+        for i in range(0, 10):
+            res = df.loc[df['noisy_labels_0'] == get_label_for_int(i)]
+            res = res[:amount_per_class]
+
+            intermed = {}
+            for index, row in res.iterrows():
+                d = {create_uuid(): {
                 "path": row['path'],
                 "class": i,
                 "probab": 0
-            }}
-            intermed.update(d)
+                }}
+                intermed.update(d)
 
-        dict_all.append(intermed)
+            dict_all.append(intermed)
+    else:
+        with open('./benchmarks/example_data.json') as json_file:
+            json_data = json.load(json_file)
+
+            for key in json_data:
+                intermed = {}
+                for i in json_data[key]:
+                    d = {create_uuid(): i}
+                    intermed.update(d)
+
+                dict_all.append(intermed)
     return dict_all
 
 
