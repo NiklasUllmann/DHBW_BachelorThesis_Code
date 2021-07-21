@@ -1,22 +1,22 @@
 import torch.nn as nn
 import torch.nn.functional as F
+import torchvision
 from tqdm.notebook import tqdm
 import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
 import torch
 from vit_pytorch import ViT
 import matplotlib.pyplot as plt
-import pandas as pd
 from CNN.cnn import CNN
 import numpy as np
-import shap
 from lime import lime_image
 from torchvision.transforms import transforms
 from sklearn.metrics import f1_score, accuracy_score
+from skimage.segmentation import mark_boundaries, felzenszwalb, slic
 
 
 class CNNModel():
-    def __init__(self, load=False, path=None):
+    def __init__(self, load=False, path=None, pretrained=False):
 
         self.device = torch.device(
             "cuda:0" if torch.cuda.is_available() else "cpu")
@@ -24,6 +24,17 @@ class CNNModel():
         if(not load):
             self.model = CNN().to(self.device)
             print("init CNN")
+        if(load and pretrained):
+            self.pretrained = True
+            self.model = torchvision.models.resnet152(pretrained=True)
+            for param in self.model.parameters():
+                param.requires_grad = False
+
+            num_ftrs = self.model.fc.in_features
+            self.model.fc = nn.Linear(num_ftrs, 10)
+            self.model = self.model.to(self.device)
+            print("pretrained CNN")
+
         else:
             self.model = torch.load(path, map_location=self.device)
             print("load CNN")
@@ -109,15 +120,14 @@ class CNNModel():
 
         explainer = lime_image.LimeImageExplainer(random_state=42)
         explanation = explainer.explain_instance(np.array(pil_img),
-                                                self.batch_predict, 
-                                                labels=[class_num],
-                                                 #top_labels=1,
+                                                 self.batch_predict,
+                                                 top_labels=10,
                                                  hide_color=1,
                                                  num_samples=1000,
-                                                 num_features=1000)
+                                                 num_features=100000)
 
         temp, mask = explanation.get_image_and_mask(
-            explanation.top_labels[0], positive_only=True, num_features=5, hide_rest=False)
+            class_num, positive_only=True, num_features=5, hide_rest=True)
 
         return temp, mask
 
@@ -158,9 +168,7 @@ class CNNModel():
                 preds_array, output.argmax(dim=1).detach().cpu().numpy())
 
         if (len(label_array) == len(preds_array)):
-            print("CNN F1 Score: " +
-                  str(f1_score(label_array, preds_array, average="macro")))
-            print("CNN Accuracy: "+str(accuracy_score(label_array, preds_array)))
+            return [f1_score(label_array, preds_array, average="macro"), accuracy_score(label_array, preds_array)]
 
     def predict(self, img):
         batch = img.to(self.device)
@@ -168,3 +176,6 @@ class CNNModel():
         logits = self.model(batch)
         probs = F.softmax(logits, dim=1)
         return probs.detach().cpu().numpy()
+
+    def resize(self, batch):
+        return F.interpolate(batch, x)

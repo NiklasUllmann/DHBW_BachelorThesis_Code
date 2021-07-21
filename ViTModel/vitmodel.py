@@ -1,13 +1,12 @@
+from matplotlib import pyplot as plt
+from utils.attentionmap import generate_multi_attention_map
 from tqdm.notebook import tqdm
 import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
 import torch
 from vit_pytorch.vit import ViT
 from vit_pytorch.recorder import Recorder
-import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
-from x_transformers import Encoder
 from sklearn.metrics import f1_score, accuracy_score
 import torch.nn.functional as F
 
@@ -140,5 +139,58 @@ class ViTModel():
                 preds_array, output.argmax(dim=1).detach().cpu().numpy())
 
         if (len(label_array) == len(preds_array)):
-            print("ViT F1 Score: "+str(f1_score(label_array, preds_array, average="macro")))
-            print("ViT Accuracy: "+str(accuracy_score(label_array, preds_array)))
+            return [f1_score(label_array, preds_array, average="macro"), accuracy_score(label_array, preds_array)]
+
+
+    def predict(self, img):
+        batch = img.to(self.device)
+
+        logits = self.model(batch)
+        probs = F.softmax(logits, dim=1)
+        return probs.detach().cpu().numpy()
+
+    def multi_predict_and_attents(self, train, val, test):
+
+        self.model = Recorder(self.model)
+        output = np.empty((320, 320))
+        count = 0
+
+        for data, label in tqdm(train):
+
+            data = data.to(self.device)
+
+            preds, attn_tensor = self.model(data)
+            output = output + generate_multi_attention_map(attn_tensor, 20, 16)
+            count += 1
+
+        torch.cuda.empty_cache()
+
+        for data, label in tqdm(val):
+
+            data = data.to(self.device)
+
+            preds, attn_tensor = self.model(data)
+            output = output + generate_multi_attention_map(attn_tensor, 20, 16)
+            count += 1
+
+        torch.cuda.empty_cache()
+
+        for data, label in tqdm(test):
+
+            data = data.to(self.device)
+
+            preds, attn_tensor = self.model(data)
+            output = output + generate_multi_attention_map(attn_tensor, 20, 16)
+            count += 1
+
+        torch.cuda.empty_cache()
+
+        self.model = self.model.eject()
+        a_map = np.divide(output, count)
+
+        plt.imshow(a_map, cmap='gray', vmax=1, vmin=0)
+        plt.axis("off")
+        plt.colorbar(fraction=0.046, pad=0.04)
+        plt.savefig("./output/vit/overall_attention.jpg")
+
+        return 0

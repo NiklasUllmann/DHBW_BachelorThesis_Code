@@ -2,8 +2,6 @@ import torch
 import numpy as np
 from PIL import Image
 import uuid
-from matplotlib import pyplot as plt
-import matplotlib.patches as mpatches
 
 
 
@@ -41,7 +39,7 @@ def visualise_attention(att_tensor, patch_size, patches_per_row, img_size, orig_
 
     out = Image.blend(rgbimg, im2, 0.2)
 
-    out.save("./output/atm/" + create_uuid() + ".jpg")
+    out.save("./output/vit/" + create_uuid() + ".jpg")
     """
     plt.subplot(1, 2, 1)
     plt.imshow(b, cmap='gray')
@@ -59,7 +57,7 @@ def visualise_attention(att_tensor, patch_size, patches_per_row, img_size, orig_
 
 def sliding_window_method(a_map):
 
-    windows_size = 25
+    windows_size = 40
     avg_max = 0
 
     bit_mask = np.zeros((320, 320), dtype=int)
@@ -69,7 +67,7 @@ def sliding_window_method(a_map):
     j_max = 0
     j_end_max = 0
 
-    for a in range(25):
+    for a in range(15):
         i_max = 0
         i_end_max = 0
         j_max = 0
@@ -90,3 +88,16 @@ def sliding_window_method(a_map):
         a_map[i_max:i_end_max, j_max:j_end_max] = 0
 
     return bit_mask
+
+
+def generate_multi_attention_map(att_tensor, patches_per_row, patch_size):
+    attn = torch.mean(att_tensor, dim=[0, 1, 2])
+    attn = torch.sum(attn, dim=0)
+    attn = attn.detach().cpu().numpy()
+    attn = attn[1:].copy()
+    attn = np.interp(attn, (attn.min(), attn.max()), (0, +1))
+
+    b = np.reshape(attn, (patches_per_row, patches_per_row))
+    b = np.kron(b, np.ones((patch_size, patch_size), dtype=b.dtype))
+
+    return b

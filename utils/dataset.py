@@ -105,6 +105,7 @@ def load_data(batch_size):
 def load_single_image(path):
 
     image = Image.open(path)
+    image = image.convert('RGB')
 
     # Create SingleTensor
     x = TF.resize(image, [320, 320])
@@ -120,8 +121,12 @@ def load_single_image(path):
 
 def just_load_resize_pil(path):
     image = Image.open(path)
+    image = image.convert('RGB')
+
     x = TF.resize(image, [320, 320])
     x = TF.to_tensor(x)
+    x = TF.normalize(x, [0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+
     x = TF.to_pil_image(x)
     return x
 
@@ -148,7 +153,7 @@ def pil_augmentation(path):
 
 def load_image_and_mirror(path):
     image = Image.open(path)
-
+    image = image.convert('RGB')
     # Create SingleTensor
     x = TF.resize(image, [320, 320])
     x = TF.to_tensor(x)
