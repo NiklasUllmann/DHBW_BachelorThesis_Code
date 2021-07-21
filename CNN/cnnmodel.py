@@ -176,6 +176,3 @@ class CNNModel():
         logits = self.model(batch)
         probs = F.softmax(logits, dim=1)
         return probs.detach().cpu().numpy()
-
-    def resize(self, batch):
-        return F.interpolate(batch, x)

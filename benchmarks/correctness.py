@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 from utils.attentionmap import generate_attention_map, sliding_window_method
 
 
-def cnn_correctness(model, array):
+def cnn_correctness(model, array, k):
 
     trans = transforms.ToTensor()
     classes = np.empty(0)
@@ -23,10 +23,12 @@ def cnn_correctness(model, array):
     for i in array:
         abc = list(dict(
             sorted(i.items(), key=lambda item: item[1]["probab"], reverse=True)).values())
-        for x in range(0, int(len(abc)/2)):
+        for x in range(0, k):
+            ix = (len(abc) - 1) - x
+            
 
             high_path = "./data/"+abc[x]["path"]
-            low_path = "./data/"+abc[(len(abc)-1)-x]["path"]
+            low_path = "./data/"+abc[ix]["path"]
 
             low_img, pil = load_single_image(low_path)
             masked_img = torch.unsqueeze(
@@ -41,7 +43,7 @@ def cnn_correctness(model, array):
     return [accuracy_score(classes, low_classes), accuracy_score(classes, masked_classes)]
 
 
-def vit_correctness(model, array):
+def vit_correctness(model, array, k):
     trans = transforms.ToTensor()
     classes = np.empty(0)
     low_classes = np.empty(0)
@@ -56,10 +58,11 @@ def vit_correctness(model, array):
         abc = list(dict(
             sorted(i.items(), key=lambda item: item[1]["probab"], reverse=True)).values())
 
-        for x in range(0, int(len(abc)/2)):
+        for x in range(0, k):
+            ix = (len(abc)-1)-x
 
             high_path = "./data/"+abc[x]["path"]
-            low_path = "./data/"+abc[(len(abc)-1)-x]["path"]
+            low_path = "./data/"+abc[ix]["path"]
 
             low_img, pil = load_single_image(low_path)
             masked_img = torch.unsqueeze(

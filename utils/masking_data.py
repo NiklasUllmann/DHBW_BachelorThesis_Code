@@ -3,7 +3,7 @@ import pandas as pd
 import uuid
 
 
-def create_json(amount_per_class, load_from_file) -> dict:
+def create_json(load_from_file) -> list:
 
     dict_all = []
     if(not load_from_file):
@@ -14,7 +14,7 @@ def create_json(amount_per_class, load_from_file) -> dict:
 
         for i in range(0, 10):
             res = df.loc[df['noisy_labels_0'] == get_label_for_int(i)]
-            res = res[:amount_per_class]
+            res = res[:100]
 
             intermed = {}
             for index, row in res.iterrows():

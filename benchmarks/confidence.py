@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 from utils.attentionmap import generate_attention_map, sliding_window_method
 
 
-def cnn_confidence(model, array):
+def cnn_confidence(model, array, k):
 
     trans = transforms.ToTensor()
     low_classes = np.empty(0)
@@ -22,7 +22,7 @@ def cnn_confidence(model, array):
     for i in array:
         abc = list(dict(
             sorted(i.items(), key=lambda item: item[1]["probab"], reverse=True)).values())
-        for x in range(0, int(len(abc)/2)):
+        for x in range(0, k):
             ix = (len(abc)-1)-x
             high_path = "./data/"+abc[x]["path"]
             low_path = "./data/"+abc[ix]["path"]
@@ -36,7 +36,7 @@ def cnn_confidence(model, array):
     return np.mean(np.subtract(masked_classes, low_classes))
 
 
-def vit_confidence(model, array):
+def vit_confidence(model, array, k):
     trans = transforms.ToTensor()
     low_classes = np.empty(0)
     masked_classes = np.empty(0)
@@ -49,7 +49,7 @@ def vit_confidence(model, array):
     for i in array:
         abc = list(dict(
             sorted(i.items(), key=lambda item: item[1]["probab"], reverse=True)).values())
-        for x in range(0, int(len(abc)/2)):
+        for x in range(0, k):
             ix = (len(abc)-1)-x
             high_path = "./data/"+abc[x]["path"]
             low_path = "./data/"+abc[ix]["path"]

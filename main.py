@@ -38,8 +38,8 @@ def main():
 
     # empty cache and seeding
     torch.cuda.empty_cache()
-    # random.seed(42)
-    # np.random.seed(42)
+    random.seed(42)
+    np.random.seed(42)
     torch.manual_seed(42)
     torch.cuda.manual_seed_all(42)
 
@@ -50,7 +50,7 @@ def main():
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_resnet.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    calc_benchmarks(test, num_cases=4, cnn=cnnModel, vit=vitModel)
+    calc_benchmarks(test, num_cases=10, cnn=cnnModel, vit=vitModel)
     """
     path = []
     with open('./utils/constants.json') as json_file:
@@ -76,7 +76,7 @@ def train_and_eval_models(train, test, val):
     cnnModel = CNNModel()
     cnn_metrics = cnnModel.train_and_val(train, val, 5)
     cnnModel.save_model("./savedModels/cnn_newArch_6.pt")
-    """
+
     # Train and save ViT Model
     vitModel = ViTModel()
     vit_metrics = vitModel.train(train, val, 16)
@@ -91,30 +91,29 @@ def train_and_eval_models(train, test, val):
 
     plot_confusion_matrix(cnn_matrix, "CNN", True)
     plot_confusion_matrix(vit_matrix, "ViT", True)
-    """
 
 
 def calc_benchmarks(test, num_cases, cnn, vit):
 
-    array = create_json(num_cases, load_from_file=True)
+    array = create_json(load_from_file=False)
 
     cnn_metr = np.empty(0)
     vit_metr = np.empty(0)
 
-    cnn_metr = np.append(cnn_metr, cnn.eval_metric(test))
-    vit_metr = np.append(vit_metr, vit.eval_metric(test))
+    #cnn_metr = np.append(cnn_metr, cnn.eval_metric(test))
+    #vit_metr = np.append(vit_metr, vit.eval_metric(test))
     print("Performance done")
 
-    cnn_metr = np.append(cnn_metr, cnn_consitency(cnn, array))
-    vit_metr = np.append(vit_metr, vit_consitency(vit, array))
+    #cnn_metr = np.append(cnn_metr, cnn_consitency(cnn, array))
+    #vit_metr = np.append(vit_metr, vit_consitency(vit, array))
     print("Consitency done")
 
-    cnn_metr = np.append(cnn_metr, cnn_correctness(cnn, array))
-    vit_metr = np.append(vit_metr, vit_correctness(vit, array))
+    #cnn_metr = np.append(cnn_metr, cnn_correctness(cnn, array, num_cases))
+    vit_metr = np.append(vit_metr, vit_correctness(vit, array, num_cases))
     print("Correctness done")
 
-    cnn_metr = np.append(cnn_metr, cnn_confidence(cnn, array))
-    vit_metr = np.append(vit_metr, vit_confidence(vit, array))
+    #cnn_metr = np.append(cnn_metr, cnn_confidence(cnn, array, num_cases))
+    #vit_metr = np.append(vit_metr, vit_confidence(vit, array, num_cases))
     print("Confidence done")
 
     print("CNN:")
