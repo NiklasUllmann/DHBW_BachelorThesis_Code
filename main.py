@@ -31,6 +31,7 @@ from skimage.segmentation import mark_boundaries
 from utils.masking_data import create_json
 from benchmarks.correctness import cnn_correctness, vit_correctness
 from benchmarks.confidence import cnn_confidence, vit_confidence
+import datetime
 
 
 def main():
@@ -50,23 +51,9 @@ def main():
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_resnet.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    calc_benchmarks(test, num_cases=10, cnn=cnnModel, vit=vitModel)
-    """
-    path = []
-    with open('./utils/constants.json') as json_file:
-        data = json.load(json_file)
-        for p in data["img"]:
-            path.append(p["path"])
+    
+    calc_benchmarks(test, num_cases=4, cnn=cnnModel, vit=vitModel)
 
-            x, y = load_single_image(p["path"])
-            #probs = cnnModel.predict(x)
-            temp, mask = cnnModel.lime_and_explain(y, p["class"])
-            vis_and_save(mask, p["path"])
-
-            #x, y = load_single_image(p["path"])
-            #preds, attns = vitModel.predict_and_attents(x)
-            #visualise_attention(attns, 16, 20, 320, p["path"])
-    """
     return 0
 
 
@@ -96,31 +83,38 @@ def train_and_eval_models(train, test, val):
 def calc_benchmarks(test, num_cases, cnn, vit):
 
     array = create_json(load_from_file=False)
+    path = './output/benchmarks/values'+datetime.today().strftime('%Y_%m_%d_%H_%M') + \
+        '_numCases_'+str(num_cases)+'.json'
 
-    cnn_metr = np.empty(0)
-    vit_metr = np.empty(0)
+    vals = {"num_cases": num_cases, "cnn": {}, "vit": {}}
 
-    #cnn_metr = np.append(cnn_metr, cnn.eval_metric(test))
-    #vit_metr = np.append(vit_metr, vit.eval_metric(test))
+    x, y = cnn.eval_metric(test)
+    vals["cnn"]["F1 Score"] = x
+    vals["cnn"]["Acc"] = y
+
+    x, y = vit.eval_metric(test)
+    vals["vit"]["F1 Score"] = x
+    vals["vit"]["Acc"] = y
     print("Performance done")
 
-    #cnn_metr = np.append(cnn_metr, cnn_consitency(cnn, array))
-    #vit_metr = np.append(vit_metr, vit_consitency(vit, array))
+    vals["cnn"]["Consitency"] = cnn_consitency(cnn, array)
+    vals["vit"]["Consitency"] = vit_consitency(cnn, array)
     print("Consitency done")
 
-    #cnn_metr = np.append(cnn_metr, cnn_correctness(cnn, array, num_cases))
-    vit_metr = np.append(vit_metr, vit_correctness(vit, array, num_cases))
-    print("Correctness done")
+    x, y = cnn_correctness(cnn, array, num_cases)
+    vals["cnn"]["Correctness"] = {"acc low images": x, "acc masked images": y}
 
-    #cnn_metr = np.append(cnn_metr, cnn_confidence(cnn, array, num_cases))
-    #vit_metr = np.append(vit_metr, vit_confidence(vit, array, num_cases))
+    x, y = vit_correctness(cnn, array, num_cases)
+    vals["vit"]["Correctness"] = {"acc low images": x, "acc masked images": y}
+    print("Consitency done")
+
+    vals["cnn"]["Confidence"] = cnn_confidence(cnn, array, num_cases)
+    vals["vit"]["Confidence"] = vit_confidence(vit, array, num_cases)
     print("Confidence done")
 
-    print("CNN:")
-    print(cnn_metr)
-
-    print("ViT:")
-    print(vit_metr)
+    with open(path, 'w') as fp:
+        json.dump(vals, fp,  indent=4)
+        print("saved json: " + path)
 
 
 if __name__ == "__main__":

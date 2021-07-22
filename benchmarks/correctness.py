@@ -6,6 +6,7 @@ from utils.dataset import just_load_resize_pil, load_single_image
 from torchvision import transforms
 from sklearn.metrics import accuracy_score
 from utils.attentionmap import generate_attention_map, sliding_window_method
+from skimage.segmentation import mark_boundaries
 
 
 def cnn_correctness(model, array, k):
@@ -85,7 +86,31 @@ def cnn_mask_image(model, high, low, class_num):
 
     im2 = Image.composite(just_load_resize_pil(high), just_load_resize_pil(
         low), Image.fromarray(np.uint8(mask)).convert('L'))
+    """
+    plt.subplot(1, 4, 1)
+    plt.imshow(just_load_resize_pil(high))
+    plt.axis("off")
 
+    plt.title('High Confidence Image', fontsize=16)
+    plt.subplot(1, 4, 2)
+    pil_img = np.asarray(just_load_resize_pil(high))
+    img_boundry = mark_boundaries(pil_img / 255.0, mask)
+    plt.imshow(img_boundry)
+    plt.axis("off")
+
+    plt.title('Explanation', fontsize=16)
+
+    plt.subplot(1, 4, 3)
+    plt.imshow(just_load_resize_pil(low))
+    plt.axis("off")
+
+    plt.title('Low Confidence Image', fontsize=16)
+    plt.subplot(1, 4, 4)
+    plt.imshow(im2)
+    plt.axis("off")
+    plt.title('Masked Image', fontsize=16)
+    plt.show()
+    """
     return im2
 
 

@@ -125,7 +125,7 @@ def just_load_resize_pil(path):
 
     x = TF.resize(image, [320, 320])
     x = TF.to_tensor(x)
-    x = TF.normalize(x, [0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+    #x = TF.normalize(x, [0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 
     x = TF.to_pil_image(x)
     return x

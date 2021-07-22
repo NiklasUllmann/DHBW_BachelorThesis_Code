@@ -14,7 +14,7 @@ def create_json(load_from_file) -> list:
 
         for i in range(0, 10):
             res = df.loc[df['noisy_labels_0'] == get_label_for_int(i)]
-            res = res[:100]
+            res = res[:10]
 
             intermed = {}
             for index, row in res.iterrows():
