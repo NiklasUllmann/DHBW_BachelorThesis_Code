@@ -89,7 +89,8 @@ def plot_confusion_matrix(conf_mat, title, save):
     #["tench", "springer",                   "casette_player", "chain_saw", "church", "French_horn", "garbage_truck", "gas_pump", "golf_ball", "parachute"]
     df_cm = pd.DataFrame(conf_mat, index=class_names,
                          columns=class_names).astype(int)
-    heatmap = sns.heatmap(df_cm, annot=True, fmt="d")
+    heatmap = sns.heatmap(df_cm, annot=True, fmt="d", cmap=sns.cubehelix_palette(
+        50, hue=0.05, rot=0, light=0.9, dark=0, as_cmap=True))
 
     heatmap.yaxis.set_ticklabels(
         heatmap.yaxis.get_ticklabels(), rotation=0, ha='right', fontsize=15)
