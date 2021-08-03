@@ -51,7 +51,11 @@ def main():
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_resnet_3.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    calc_benchmarks(test, num_cases=5, cnn=cnnModel, vit=vitModel)
+    cnn_matrix = cnnModel.conv_matrix(test, 10)
+    vit_matrix = vitModel.conv_matrix(test, 10)
+
+    plot_confusion_matrix(cnn_matrix, "CNN_ResNet", True)
+    plot_confusion_matrix(vit_matrix, "ViT", True)
 
     return 0
 

@@ -85,8 +85,8 @@ def plot_confusion_matrix(conf_mat, title, save):
 
     plt.figure(figsize=(15, 10))
 
-    class_names = ["tench", "springer",
-                   "casette_player", "chain_saw", "church", "French_horn", "garbage_truck", "gas_pump", "golf_ball", "parachute"]
+    class_names = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    #["tench", "springer",                   "casette_player", "chain_saw", "church", "French_horn", "garbage_truck", "gas_pump", "golf_ball", "parachute"]
     df_cm = pd.DataFrame(conf_mat, index=class_names,
                          columns=class_names).astype(int)
     heatmap = sns.heatmap(df_cm, annot=True, fmt="d")
@@ -94,9 +94,9 @@ def plot_confusion_matrix(conf_mat, title, save):
     heatmap.yaxis.set_ticklabels(
         heatmap.yaxis.get_ticklabels(), rotation=0, ha='right', fontsize=15)
     heatmap.xaxis.set_ticklabels(
-        heatmap.xaxis.get_ticklabels(), rotation=45, ha='right', fontsize=15)
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
+        heatmap.xaxis.get_ticklabels(), rotation=0, ha='right', fontsize=15)
+    plt.ylabel('True label', fontsize=15)
+    plt.xlabel('Predicted label', fontsize=15)
 
     if(save):
         plt.savefig(OUTPUT_PATH+"Conf_Matr_" + title +
