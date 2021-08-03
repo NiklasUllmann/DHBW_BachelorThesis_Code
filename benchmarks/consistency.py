@@ -4,24 +4,33 @@ from utils.attentionmap import generate_attention_map, sliding_window_method
 import numpy as np
 
 
-def cnn_consitency(model, list_of_paths):
+def cnn_consitency(model, array, k):
     avgs = []
-    for i in list_of_paths:
-        for key, value in i.items():
-            x, x_mir, y, y_mir = load_image_and_mirror("./data/"+value["path"])
-            temp, mask = model.lime_and_explain(y, value["class"])
-            temp_mir, mask_mir = model.lime_and_explain(y_mir, value["class"])
+
+    for i in array:
+        abc = list(dict(
+            sorted(i.items(), key=lambda item: item[1]["probab"], reverse=True)).values())
+
+        for a in range(0, k*2):
+            x, x_mir, y, y_mir = load_image_and_mirror(
+                "./data/"+abc[a]["path"])
+            temp, mask = model.lime_and_explain(y, abc[a]["class"])
+            temp_mir, mask_mir = model.lime_and_explain(y_mir, abc[a]["class"])
 
             avgs.append(compare_bitmasks(mask, np.fliplr(mask_mir)))
 
     return sum(avgs)/len(avgs)
 
 
-def vit_consitency(model, list_of_paths):
+def vit_consitency(model, array, k):
     avgs = []
-    for i in list_of_paths:
-        for key, value in i.items():
-            x, x_mir, y, y_mir = load_image_and_mirror("./data/"+value["path"])
+    for i in array:
+        abc = list(dict(
+            sorted(i.items(), key=lambda item: item[1]["probab"], reverse=True)).values())
+
+        for a in range(0, k*2):
+            x, x_mir, y, y_mir = load_image_and_mirror(
+                "./data/"+abc[a]["path"])
         preds, attn = model.predict_and_attents(x)
         preds_mir, attn_mir = model.predict_and_attents(x_mir)
 

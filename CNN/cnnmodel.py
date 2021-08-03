@@ -12,7 +12,7 @@ import numpy as np
 from lime import lime_image
 from torchvision.transforms import transforms
 from sklearn.metrics import f1_score, accuracy_score
-from skimage.segmentation import mark_boundaries, felzenszwalb, slic
+from datetime import datetime
 
 
 class CNNModel():
@@ -95,6 +95,7 @@ class CNNModel():
             print(
                 f"Epoch : {epoch+1} - loss : {epoch_loss:.4f} - acc: {epoch_accuracy:.4f} - val_loss : {epoch_val_loss:.4f} - val_acc: {epoch_val_accuracy:.4f}\n"
             )
+            print("Current Time =", datetime.now().strftime("%H:%M:%S"))
 
         result = {"train_loss_record": train_loss_record, "train_acc_record": train_acc_record,
                   "val_loss_record": val_loss_record, "val_acc_record": val_acc_record}
