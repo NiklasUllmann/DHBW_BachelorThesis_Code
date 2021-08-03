@@ -45,13 +45,13 @@ def main():
     torch.cuda.manual_seed_all(42)
 
     # load train val test set
-    train, val, test = load_data(batch_size=200)
+    train, val, test = load_data(batch_size=8)
 
     # Load current models
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_resnet_3.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    calc_benchmarks(test, num_cases=10, cnn=cnnModel, vit=vitModel)
+    calc_benchmarks(test, num_cases=5, cnn=cnnModel, vit=vitModel)
 
     return 0
 
@@ -99,13 +99,13 @@ def calc_benchmarks(test, num_cases, cnn, vit):
     print("Performance done")
 
     vals["cnn"]["Consitency"] = cnn_consitency(cnn, array, num_cases)
-    vals["vit"]["Consitency"] = vit_consitency(cnn, array, num_cases)
+    vals["vit"]["Consitency"] = vit_consitency(vit, array, num_cases)
     print("Consitency done")
 
     x, y = cnn_correctness(cnn, array, num_cases)
     vals["cnn"]["Correctness"] = {"acc low images": x, "acc masked images": y}
 
-    x, y = vit_correctness(cnn, array, num_cases)
+    x, y = vit_correctness(vit, array, num_cases)
     vals["vit"]["Correctness"] = {"acc low images": x, "acc masked images": y}
     print("Consitency done")
 
