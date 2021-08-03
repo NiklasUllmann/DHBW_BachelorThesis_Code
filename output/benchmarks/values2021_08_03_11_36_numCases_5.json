@@ -1,23 +1,31 @@
 {
-    "num_cases": 5,
-    "cnn": {
-        "F1 Score": 0.9641253412513926,
-        "Acc": 0.9641701915899478,
-        "Consitency": 0.5127505097055982,
-        "Correctness": {
-            "acc low images": 0.3,
-            "acc masked images": 0.62
-        },
-        "Confidence": 0.2611238999728812
+  "num_cases": 5,
+  "cnn": {
+    "F1 Score": 0.9641253412513926,
+    "Acc": 0.9641701915899478,
+    "Consitency": 0.5127505097055982,
+    "Correctness": {
+      "acc low images": 0.3,
+      "acc masked images": 0.62
     },
-    "vit": {
-        "F1 Score": 0.8761081101313064,
-        "Acc": 0.876337397362528,
-        "Consitency": 0.4644584002448126,
-        "Correctness": {
-            "acc low images": 0.04,
-            "acc masked images": 0.16
-        },
-        "Confidence": 0.1449851048647497
+    "Confidence": {
+      "prob low images": 0.09344908151775598,
+      "prob masked images": 0.48177616431077763,
+      "mean prob dif": 0.3883270827930217
     }
+  },
+  "vit": {
+    "F1 Score": 0.8761081101313064,
+    "Acc": 0.876337397362528,
+    "Consitency": 0.4644584002448126,
+    "Correctness": {
+      "acc low images": 0.04,
+      "acc masked images": 0.16
+    },
+    "Confidence": {
+      "prob low images": 0.0009948360197677174,
+      "prob masked images": 0.14167614650858013,
+      "mean prob dif": 0.1406813104888124
+    }
+  }
 }

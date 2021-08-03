@@ -33,7 +33,7 @@ def cnn_confidence(model, array, k):
             masked_classes = np.append(masked_classes, model.predict(
                 masked_img)[0][abc[ix]["class"]])
 
-    return np.mean(np.subtract(masked_classes, low_classes))
+    return np.mean(low_classes), np.mean(masked_classes), np.mean(np.subtract(masked_classes, low_classes))
 
 
 def vit_confidence(model, array, k):
@@ -60,7 +60,7 @@ def vit_confidence(model, array, k):
             masked_classes = np.append(masked_classes, model.predict(
                 masked_img)[0][abc[ix]["class"]])
 
-    return np.mean(np.subtract(masked_classes, low_classes))
+    return np.mean(low_classes), np.mean(masked_classes), np.mean(np.subtract(masked_classes, low_classes))
 
 
 def cnn_mask_image(model, high, low, class_num):

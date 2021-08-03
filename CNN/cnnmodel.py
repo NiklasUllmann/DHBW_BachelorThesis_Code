@@ -173,7 +173,7 @@ class CNNModel():
 
     def predict(self, img):
         batch = img.to(self.device)
-
+        print("Test")
         logits = self.model(batch)
         probs = F.softmax(logits, dim=1)
         return probs.detach().cpu().numpy()

@@ -51,11 +51,7 @@ def main():
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_resnet_3.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    cnn_matrix = cnnModel.conv_matrix(test, 10)
-    vit_matrix = vitModel.conv_matrix(test, 10)
-
-    plot_confusion_matrix(cnn_matrix, "CNN_ResNet", True)
-    plot_confusion_matrix(vit_matrix, "ViT", True)
+    calc_benchmarks(test, 5, cnnModel, vitModel)
 
     return 0
 
@@ -91,6 +87,7 @@ def calc_benchmarks(test, num_cases, cnn, vit):
         '_numCases_'+str(num_cases)+'.json'
 
     vals = {"num_cases": num_cases, "cnn": {}, "vit": {}}
+    print(vals)
 
     
     x, y = cnn.eval_metric(test)
@@ -111,10 +108,15 @@ def calc_benchmarks(test, num_cases, cnn, vit):
 
     x, y = vit_correctness(vit, array, num_cases)
     vals["vit"]["Correctness"] = {"acc low images": x, "acc masked images": y}
-    print("Consitency done")
+    print("Correctness done")
+    
+    x, y, z = cnn_confidence(cnn, array, num_cases)
+    vals["cnn"]["Confidence"] = {"prob low images": x,
+                                 "prob masked images": y, "mean prob dif": z}
 
-    vals["cnn"]["Confidence"] = cnn_confidence(cnn, array, num_cases)
-    vals["vit"]["Confidence"] = vit_confidence(vit, array, num_cases)
+    x, y, z = vit_confidence(vit, array, num_cases)
+    vals["vit"]["Confidence"] = {"prob low images": x,
+                                 "prob masked images": y, "mean prob dif": z}
     print("Confidence done")
     
     with open(path, 'w') as fp:
