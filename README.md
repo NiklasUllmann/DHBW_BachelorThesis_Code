@@ -53,7 +53,18 @@ torch.Size([256, 6, 77, 77])
 
 ## Todo:
 
-Metriken berechnen
-Verschiedene Anzahl an Paaren
-Visualisierung vom Masking
+high: './data/aug/mirror/n01440764_b93cff1af0.JPEG'
+low: './data/train/n01440764/n01440764_6279.JPEG'
 
+high = "./data/aug/mirror/n01440764_b93cff1af0.JPEG"
+low = "./data/train/n01440764/n01440764_6279.JPEG"
+
+
+high = './data/aug/mirror/n01440764_d6b6d72bac.JPEG'
+low = './data/val/n01440764/n01440764_1302.JPEG'
+
+high ='./data/train/n01440764/n01440764_457.JPEG'
+low =   './data/train/n01440764/n01440764_22706.JPEG'
+
+high = './data/train/n01440764/n01440764_457.JPEG'
+low =   './data/train/n01440764/n01440764_22706.JPEG'

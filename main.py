@@ -1,36 +1,29 @@
+from matplotlib import patches
+from numpy.core.fromnumeric import squeeze
 import torch
 from utils.dataset import ImagenetteDataset, just_load_resize_pil, load_data, load_single_image, load_image_and_mirror
-from utils.attentionmap import generate_multi_attention_map, generate_attention_map
+from utils.attentionmap import generate_multi_attention_map, generate_attention_map, sliding_window_method, visualise_attention
 from utils.lime_vis import vis_and_save
 from utils.plotting_utils import imshow, plot_aumentation, plot_class_images, plot_confusion_matrix, plot_data_preprocessing, plot_metrics, show_distribution, plot_patches
 from CNN.cnnmodel import CNNModel
 from ViTModel.vitmodel import ViTModel
 
 
-from tqdm.notebook import tqdm
-
-
 import json
 import numpy as np
-import matplotlib.image as mpimg
 
-from benchmarks.consistency import cnn_consitency, vit_consitency
-import torch.nn as nn
-from findpeaks import findpeaks
+
 # Standard imports
 
 import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-from skimage import measure
-from skimage.segmentation import felzenszwalb, slic, quickshift, watershed
-from skimage.filters import sobel
-from skimage.segmentation import mark_boundaries
 
 from utils.masking_data import create_json
 from benchmarks.correctness import cnn_correctness, vit_correctness
-from benchmarks.confidence import cnn_confidence, vit_confidence
+from benchmarks.confidence import cnn_confidence, vit_confidence, cnn_mask_image, vit_mask_image
+from benchmarks.consistency import cnn_consitency, vit_consitency
 from datetime import datetime
 
 
@@ -51,8 +44,59 @@ def main():
     cnnModel = CNNModel(load=True, path="./savedModels/cnn_resnet_3.pt")
     vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
 
-    calc_benchmarks(test, 5, cnnModel, vitModel)
+    high = "./data/val/n03000684/ILSVRC2012_val_00029211.JPEG"
+    x, y = load_single_image(high)
 
+    preds, attn = vitModel.predict_and_attents(x)
+
+    
+    a_Map = generate_attention_map(attn, 20, 16)
+    a = sliding_window_method(a_Map)
+    plt.imshow(a)
+    lila_patch = patches.Patch(color='purple', label='0')
+    yellow_patch = patches.Patch(color='yellow', label='1')
+
+
+
+    plt.legend(handles=[lila_patch, yellow_patch])
+    plt.axis("off")
+    plt.show()
+    
+    """
+    cnn_im = cnn_mask_image(cnnModel, high, low, 0)
+    vit_im = vit_mask_image(vitModel, high, low)
+
+    plt.imshow(pil_high, aspect="equal")
+    plt.axis("off")
+    plt.title("High Confidence Image")
+    plt.savefig("./output/img/hci.png")
+    plt.clf()
+    plt.imshow(pil_low, aspect="equal")
+    plt.axis("off")
+    plt.title("Low Confidence Image")
+    plt.savefig("./output/img/lci.png")
+    plt.clf()
+    plt.imshow(mask,  aspect="equal")
+    plt.axis("off")
+    plt.title("Lime Explanation")
+    plt.savefig("./output/img/le.png")
+    plt.clf()
+    plt.imshow(a,  aspect="equal")
+    plt.axis("off")
+    plt.title("Attention Explanation")
+    plt.savefig("./output/img/ae.png")
+    plt.clf()
+    plt.imshow(cnn_im,  aspect="equal")
+    plt.axis("off")
+    plt.title("CNN Masked Image")
+    plt.savefig("./output/img/cnnmask.png")
+    plt.clf()
+    plt.imshow(vit_im, aspect="equal")
+    plt.axis("off")
+    plt.title("ViT Masked Image")
+    plt.savefig("./output/img/vitmask.png")
+    plt.clf()
+    """
     return 0
 
 
@@ -87,9 +131,7 @@ def calc_benchmarks(test, num_cases, cnn, vit):
         '_numCases_'+str(num_cases)+'.json'
 
     vals = {"num_cases": num_cases, "cnn": {}, "vit": {}}
-    print(vals)
-
-    
+    """
     x, y = cnn.eval_metric(test)
     vals["cnn"]["F1 Score"] = x
     vals["cnn"]["Acc"] = y
@@ -109,16 +151,16 @@ def calc_benchmarks(test, num_cases, cnn, vit):
     x, y = vit_correctness(vit, array, num_cases)
     vals["vit"]["Correctness"] = {"acc low images": x, "acc masked images": y}
     print("Correctness done")
-    
+
     x, y, z = cnn_confidence(cnn, array, num_cases)
     vals["cnn"]["Confidence"] = {"prob low images": x,
                                  "prob masked images": y, "mean prob dif": z}
-
+    """
     x, y, z = vit_confidence(vit, array, num_cases)
     vals["vit"]["Confidence"] = {"prob low images": x,
                                  "prob masked images": y, "mean prob dif": z}
     print("Confidence done")
-    
+
     with open(path, 'w') as fp:
         json.dump(vals, fp,  indent=4)
         print("saved json: " + path)

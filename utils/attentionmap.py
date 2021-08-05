@@ -1,3 +1,4 @@
+from matplotlib import pyplot as plt
 import torch
 import numpy as np
 from PIL import Image
@@ -40,7 +41,7 @@ def visualise_attention(att_tensor, patch_size, patches_per_row, img_size, orig_
     out = Image.blend(rgbimg, im2, 0.2)
 
     out.save("./output/vit/" + create_uuid() + ".jpg")
-    """
+    
     plt.subplot(1, 2, 1)
     plt.imshow(b, cmap='gray')
     plt.colorbar(fraction=0.046, pad=0.04)
@@ -51,7 +52,7 @@ def visualise_attention(att_tensor, patch_size, patches_per_row, img_size, orig_
     plt.axis("off")
 
     plt.savefig("./output/atm/" + create_uuid() + ".jpg")
-    """
+    
     return 0
 
 
