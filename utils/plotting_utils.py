@@ -176,13 +176,13 @@ def plot_data_preprocessing():
 
 def plot_patches(path):
 
-    patch_size = 16
+    patch_size = 8
     x = 0
     y = 0
     max_size = 320
     resized_img = just_load_resize_pil(path)
 
-    for i in range(int(320 / 16)):
+    for i in range(int(320 / patch_size)):
         plt.plot([i*patch_size, i*patch_size], [0, 320],
                  color="white", linewidth=1)
         plt.plot([0, 320], [i*patch_size, i*patch_size],
@@ -190,4 +190,4 @@ def plot_patches(path):
 
     plt.imshow(resized_img)
     plt.axis("off")
-    plt.savefig(OUTPUT_PATH+"patches.png")
+    plt.savefig(OUTPUT_PATH+"patches_small.png")

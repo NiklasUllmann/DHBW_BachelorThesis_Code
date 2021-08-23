@@ -1,30 +1,35 @@
+import json
+import random
+from datetime import datetime
+
+import matplotlib.pyplot as plt
+import numpy as np
+import torch
 from matplotlib import patches
 from numpy.core.fromnumeric import squeeze
-import torch
-from utils.dataset import ImagenetteDataset, just_load_resize_pil, load_data, load_single_image, load_image_and_mirror
-from utils.attentionmap import generate_multi_attention_map, generate_attention_map, sliding_window_method, visualise_attention
-from utils.lime_vis import vis_and_save
-from utils.plotting_utils import imshow, plot_aumentation, plot_class_images, plot_confusion_matrix, plot_data_preprocessing, plot_metrics, show_distribution, plot_patches
+
+from benchmarks.confidence import (cnn_confidence, cnn_mask_image,
+                                   vit_confidence, vit_mask_image)
+from benchmarks.consistency import cnn_consitency, vit_consitency
+from benchmarks.correctness import cnn_correctness, vit_correctness
 from CNN.cnnmodel import CNNModel
+from utils.attentionmap import (generate_attention_map,
+                                generate_multi_attention_map,
+                                sliding_window_method, visualise_attention)
+from utils.dataset import (ImagenetteDataset, just_load_resize_pil, load_data,
+                           load_image_and_mirror, load_single_image)
+from utils.lime_vis import vis_and_save
+from utils.masking_data import create_json
+from utils.plotting_utils import (imshow, plot_aumentation, plot_class_images,
+                                  plot_confusion_matrix,
+                                  plot_data_preprocessing, plot_metrics,
+                                  plot_patches, show_distribution)
 from ViTModel.vitmodel import ViTModel
-
-
-import json
-import numpy as np
-
 
 # Standard imports
 
-import numpy as np
-import matplotlib.pyplot as plt
-import random
 
 
-from utils.masking_data import create_json
-from benchmarks.correctness import cnn_correctness, vit_correctness
-from benchmarks.confidence import cnn_confidence, vit_confidence, cnn_mask_image, vit_mask_image
-from benchmarks.consistency import cnn_consitency, vit_consitency
-from datetime import datetime
 
 
 def main():
@@ -41,62 +46,9 @@ def main():
     train, val, test = load_data(batch_size=8)
 
     # Load current models
-    cnnModel = CNNModel(load=True, path="./savedModels/cnn_resnet_3.pt")
-    vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
-
-    high = "./data/val/n03000684/ILSVRC2012_val_00029211.JPEG"
-    x, y = load_single_image(high)
-
-    preds, attn = vitModel.predict_and_attents(x)
-
-    
-    a_Map = generate_attention_map(attn, 20, 16)
-    a = sliding_window_method(a_Map)
-    plt.imshow(a)
-    lila_patch = patches.Patch(color='purple', label='0')
-    yellow_patch = patches.Patch(color='yellow', label='1')
-
-
-
-    plt.legend(handles=[lila_patch, yellow_patch])
-    plt.axis("off")
-    plt.show()
-    
-    """
-    cnn_im = cnn_mask_image(cnnModel, high, low, 0)
-    vit_im = vit_mask_image(vitModel, high, low)
-
-    plt.imshow(pil_high, aspect="equal")
-    plt.axis("off")
-    plt.title("High Confidence Image")
-    plt.savefig("./output/img/hci.png")
-    plt.clf()
-    plt.imshow(pil_low, aspect="equal")
-    plt.axis("off")
-    plt.title("Low Confidence Image")
-    plt.savefig("./output/img/lci.png")
-    plt.clf()
-    plt.imshow(mask,  aspect="equal")
-    plt.axis("off")
-    plt.title("Lime Explanation")
-    plt.savefig("./output/img/le.png")
-    plt.clf()
-    plt.imshow(a,  aspect="equal")
-    plt.axis("off")
-    plt.title("Attention Explanation")
-    plt.savefig("./output/img/ae.png")
-    plt.clf()
-    plt.imshow(cnn_im,  aspect="equal")
-    plt.axis("off")
-    plt.title("CNN Masked Image")
-    plt.savefig("./output/img/cnnmask.png")
-    plt.clf()
-    plt.imshow(vit_im, aspect="equal")
-    plt.axis("off")
-    plt.title("ViT Masked Image")
-    plt.savefig("./output/img/vitmask.png")
-    plt.clf()
-    """
+    #cnnModel = CNNModel(load=True, path="./savedModels/cnn_resnet_3.pt")
+    #vitModel = ViTModel(load=True, path="./savedModels/vit_smallerPatches.pt")
+    plot_patches("ele.jpg")
     return 0
 
 
