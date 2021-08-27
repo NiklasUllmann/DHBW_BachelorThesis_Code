@@ -1,8 +1,12 @@
 # DHBW_BachelorThesis_Code
 
 The Code repository for my own Bachelorthesis in 2021. 
+## Abstract 
 
-Topic: "Using attention techniques for explainability of deep learning models in computer vision"
+# DHBW_BachelorThesis
+ As AI models have become more and more complex in recent years, the need for explanations has become greater to increase comprehensibility and trust in the models as trust is becoming increasingly important since AI models are starting to influence decision-making in most aspects of our lives. At the same time, the concept of attention in AI models emerged in the field of NLP, which makes it possible for models to focus on the important things in a complex input and helps us to understand on which things the algorithm has focused. After the good results in NLP, attempts were also made to transfer the attention concepts to the field of CV. In this bachelor thesis, the newly developed attention-based vision transformer is applied, and its results are visualised and explained with the help of calculated attention. This novel explainer is compared with an already established explainer called LIME. The comparison and the quality determination are carried out by using newly published quantitative metrics. This bachelor thesis is the first paper to-date to independently evaluate these new quantitative evaluation metrics of expainability. A closer look at the metrics revealed that they have a logical basis and, therefore, can measure the quality of explainers. However, the attention-based explainer proposed in this bachelor thesis performed slightly worse than the LIME. This could be partly caused by the functionality of the metrics, the slightly worse general performance of the model, and the explainer itself. With a little fine-tuning, however, most of the problems found can be solved.
+
+In summary, the intrinsic attention-based explainer developed in this bachelor thesis is a good explainer with much potential. It combines attention with the explanation of AI models and thus contributes to more comprehensibility and trust in those models. 
 
 ## Execute Code
 
@@ -22,26 +26,6 @@ Install requiered packages:
 Run Code:
 ```python main.py```
 
-## Other Stuff:
-
-imagenette_map = { 
-    "n01440764" : "tench", 0
-    "n02102040" : "springer",1
-    "n02979186" : "casette_player",2
-    "n03000684" : "chain_saw",3
-    "n03028079" : "church",4
-    "n03394916" : "French_horn",5
-    "n03417042" : "garbage_truck",6
-    "n03425413" : "gas_pump",7
-    "n03445777" : "golf_ball",8
-    "n03888257" : "parachute"9
-}
-
-torch.Size([256, 3, 320, 320])
-torch.Size([256, 6, 316, 316])
-torch.Size([256, 6, 158, 158])
-torch.Size([256, 6, 154, 154])
-torch.Size([256, 6, 77, 77])
 
 ## Acknowladegements:
 
@@ -51,20 +35,3 @@ torch.Size([256, 6, 77, 77])
     - https://github.com/lucidrains/vit-pytorch
 
 
-## Todo:
-
-high: './data/aug/mirror/n01440764_b93cff1af0.JPEG'
-low: './data/train/n01440764/n01440764_6279.JPEG'
-
-high = "./data/aug/mirror/n01440764_b93cff1af0.JPEG"
-low = "./data/train/n01440764/n01440764_6279.JPEG"
-
-
-high = './data/aug/mirror/n01440764_d6b6d72bac.JPEG'
-low = './data/val/n01440764/n01440764_1302.JPEG'
-
-high ='./data/train/n01440764/n01440764_457.JPEG'
-low =   './data/train/n01440764/n01440764_22706.JPEG'
-
-high = './data/train/n01440764/n01440764_457.JPEG'
-low =   './data/train/n01440764/n01440764_22706.JPEG'
